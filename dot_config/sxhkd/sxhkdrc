@@ -1,0 +1,121 @@
+# make sxhkd reload its configuration files
+super + Escape
+    pkill -USR1 -x sxhkd
+
+
+# ================
+# program shotkyes
+# ================
+
+# run programs
+super + Return
+    rofi -show drun
+
+# common programs
+super + {ctrl + Return,w}
+    {alacritty,firefox}
+
+# rofi show active nodes
+super + Tab
+    rofi -show window
+
+# start region screenshot
+ctrl + Print
+    flameshot gui
+
+# close and kill
+super + {q,k}
+    bspc node -{c,k}
+
+
+# ================
+# audio
+# ================
+
+# volume
+XF86Audio{Mute,RaiseVolume,LowerVolume}
+    ~/.scripts/pw-setvol.sh {mute toggle,+0.05,-0.05}
+
+super + XF86Audio{Mute,RaiseVolume,LowerVolume}
+    ~/.scripts/spotify.sh {PlayPause,Next,Previous}
+
+super + shift + XF86AudioMute
+    ~/.scripts/pw-setdev.sh toggle && polybar-msg action '#audio-devices.hook.0'
+
+
+# ================
+# bspwm hotkeys
+# ================
+
+# quit/restart bspwm
+super + alt + {q,r}
+    bspc {quit,wm -r}
+
+#
+# focus
+#
+
+# cycle through nodes
+alt + Tab
+    bspc node -f next.local
+
+# focus node
+super + {Left,Down,Up,Right}
+    bspc node -f {west,south,north,east}.local
+
+# focus the next/prev desktop
+super + bracket{left,right}
+    bspc desktop -f {prev,next}.local
+
+# focus next/prev monitor
+super + {comma,period}
+    bspc monitor -f {prev,next}
+
+#
+# preselect
+#
+
+# preselect regular
+super + ctrl + {Left,Down,Up,Right}
+    bspc node --presel-dir {west,south,north,east}
+
+# preselect cancel
+super + ctrl + c
+    bspc node --presel-dir cancel
+
+#
+# move/swap
+#
+
+# rotate notes
+super + shift + r
+    bspc node --rotate 90
+
+# swap nodes
+super + shift + {Left,Down,Up,Right}
+    bspc node -s {west,south,north,east}.local
+ 
+# move node to desktop
+super + shift + bracket{left,right}
+    bspc node --to-desktop {prev,next}.local --follow
+
+# move node to monitor
+super + shift + {comma,period}
+    bspc node --to-monitor {prev,next} --follow
+
+#
+# non tiling specific
+#
+
+# swap floating/tiling
+super + shift + @space
+    bspc node -t "~"{floating,tiled}
+
+# swap fullscreen/tiling
+super + @space
+    bspc node -t "~"{fullscreen,tiled}
+
+# move floating window
+super + alt + {Left,Down,Up,Right}
+    bspc node -v {-20 0,0 20,0 -20,20 0}
+

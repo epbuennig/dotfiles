@@ -1,0 +1,22 @@
+
+# from: https://github.com/aarowill/base16-alacritty/blob/master/colors/base16-gruvbox-dark-hard-256.yml
+import:
+  - ~/.config/alacritty/fonts.yml
+  - ~/.config/alacritty/colors.yml
+
+window:
+  # Available values:
+  # - full: borders and title bar
+  # - none: neither borders nor title bar
+  # - transparent: title bar, transparent background and title bar buttons
+  # - buttonless: title bar, transparent background, but no title bar buttons
+  decorations: none
+
+
+key_bindings:
+  - { key: Plus,     mods: Control|Shift, action: IncreaseFontSize }
+  - { key: Minus,    mods: Control|Shift, action: DecreaseFontSize }
+  - { key: Return,   mods: Control|Shift, action: ResetFontSize    }
+  - { key: V,        mods: Control|Shift, action: Paste            }
+  - { key: C,        mods: Control|Shift, action: Copy             }
+

@@ -1,0 +1,11 @@
+configuration {
+    modi: [drun, window];
+    terminal: "alacritty";
+    sidebar-mode: true;
+    matching: "fuzzy";
+    kb-mode-next: "Shift+Tab";
+    drun-match-fields: "name";
+}
+
+@theme "~/.config/rofi/gruvbox-dark-hard.rasi"
+

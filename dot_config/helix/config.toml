@@ -1,0 +1,19 @@
+theme = "gruvbox_original_dark_hard"
+
+[editor]
+rulers = [100]
+
+[editor.cursor-shape]
+normal = "block"
+insert = "bar"
+select = "underline"
+
+[editor.whitespace.render]
+space = "all"
+tab = "all"
+newline = "none"
+
+[editor.whitespace.characters]
+space = "·"
+tab = "→"
+newline = "¬"

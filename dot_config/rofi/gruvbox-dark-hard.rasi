@@ -1,0 +1,169 @@
+// modified version of the base theme
+
+configuration {
+    width:              600;
+    sidebar-mode:       true;
+    lines:              10;
+    show-icons:         false;
+    show-match:         false;
+    separator-style:    "solid";
+}
+
+* {
+    highlight: bold italic;
+    scrollbar: true;
+
+    background: #1d2021; // black
+    foreground: #fabd2f; // yellow
+
+    background-color:   @background;
+    text-color:         @foreground;
+    border-color:       @foreground;
+    separatorcolor:     @border-color;
+    scrollbar-handle:   @border-color;
+
+    // normal
+    normal-background:          @background;
+    normal-foreground:          @foreground;
+    alternate-background:       @normal-background;
+    alternate-foreground:       @normal-foreground;
+    selected-normal-background: @normal-foreground; // inverted
+    selected-normal-foreground: @normal-background; // inverted
+
+    // active
+    active-background:              #665c54; // black-alt
+    active-foreground:              @foreground;
+    alternate-active-background:    @active-background;
+    alternate-active-foreground:    @active-background;
+    selected-active-background:     @active-foreground; // inverted
+    selected-active-foreground:     @active-background; // inverted
+
+    // urgent
+    urgent-background:              @background;
+    urgent-foreground:              #fb4934; // red
+    alternate-urgent-background:    @urgent-background;
+    alternate-urgent-foreground:    @urgent-foreground;
+    selected-urgent-background:     @urgent-foreground; // inverted
+    selected-urgent-foreground:     @urgent-background; // inverted
+}
+
+window {
+    background-color: @background;
+    border:           0;
+    padding:          0;
+}
+
+mainbox {
+    border:  2;
+    padding: 0;
+}
+
+message {
+    border:       2px 0 0;
+    border-color: @separatorcolor;
+    padding:      20 ;
+}
+
+textbox {
+    hightlight: @hightlight;
+    text-color: @foreground;
+}
+
+listview {
+    padding:      2px 0 0;
+    spacing:      2px;
+    scrollbar:    false;
+    padding:	  5 0 0;
+}
+
+element {
+    border:  0;
+    padding: 5px;
+    // children: [element-icon, element-text];
+}
+
+element normal.normal {
+    background-color: @normal-background;
+    text-color:       @normal-foreground;
+}
+
+element normal.urgent {
+    background-color: @urgent-background;
+    text-color:       @urgent-foreground;
+}
+
+element normal.active {
+    background-color: @active-background;
+    text-color:       @active-foreground;
+}
+
+element alternate.normal {
+    background-color: @alternate-normal-background;
+    text-color:       @alternate-normal-foreground;
+}
+
+element alternate.urgent {
+    background-color: @alternate-urgent-background;
+    text-color:       @alternate-urgent-foreground;
+}
+
+element alternate.active {
+    background-color: @alternate-active-background;
+    text-color:       @alternate-active-foreground;
+}
+
+element selected.normal {
+    background-color: @selected-normal-background;
+    text-color:       @selected-normal-foreground;
+}
+
+element selected.urgent {
+    background-color: @selected-urgent-background;
+    text-color:       @selected-urgent-foreground;
+}
+
+element selected.active {
+    background-color: @selected-active-background;
+    text-color:       @selected-active-foreground;
+}
+
+scrollbar {
+    width:          4px;
+    border:         0;
+    handle-color:   @scrollbar-handle;
+    handle-width:   8px;
+    padding:        0;
+}
+
+button,
+case-indicator,
+entry,
+prompt {
+    spacing:    0;
+    text-color: @normal-foreground;
+}
+
+button selected {
+    background-color: @selected-normal-background;
+    text-color:       @selected-normal-foreground;
+}
+
+inputbar {
+    spacing:    0;
+    text-color: @normal-foreground;
+    padding:    2px;
+    children:   [textbox-prompt-colon, entry, case-indicator];
+}
+
+#textbox-prompt-colon {
+    expand:             false;
+    str:                "::";
+    text-color:         @foreground;
+    margin:             0 0.3em 0 0;
+}
+
+element-text {
+    background-color:   inherit;
+    text-color:         inherit;
+}
+
