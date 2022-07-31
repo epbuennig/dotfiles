@@ -1,12 +1,12 @@
 [include]
     path = .gitconfig-personal
 
-[includeIf "gitdir:~/Source/business/"]
+[includeIf "gitdir:~/Source/github.com-business/"]
     path = .gitconfig-business
 [includeIf "hasconfig:remote.*.url:git@github.com-business:**/**"]
     path = .gitconfig-business
 
-[includeIf "gitdir:~/Source/university/"]
+[includeIf "gitdir:~/Source/git.ai.fh-erfurt.de/"]
     path = .gitconfig-university
 [includeIf "hasconfig:remote.*.url:git@git.ai.fh-erfurt.de:**/**"]
     path = .gitconfig-university
