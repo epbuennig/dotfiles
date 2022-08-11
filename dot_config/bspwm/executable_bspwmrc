@@ -11,11 +11,11 @@ $HOME/.config/polybar/launch.sh
 bspc monitor DP-2 -d main firefox media mail code opera vm
 
 if [[ $(xrandr -q | grep 'HDMI-0 connected') ]]; then
-    bspc monitor HDMI-0 -d discord media_second spotify
-    bspc rule -a 'discord:*'     desktop=discord
+    bspc monitor HDMI-0 -d discord media2 spotify
+    bspc rule -a 'discord:*'     desktop=discord follow=off
     # TODO: spotify is not recognized by bspc
     # see: https://github.com/baskerville/bspwm/issues/291
-    bspc rule -a 'spotify:*'     desktop=spotify
+    bspc rule -a 'spotify:*'     desktop=spotify follow=off
 fi
 
 # config
@@ -34,6 +34,7 @@ bspc rule -a 'firefox:*'         desktop=firefox follow=on
 bspc rule -a 'Opera:*'           desktop=opera   follow=off
 
 bspc rule -a 'vlc:*'             desktop=media   follow=on
+bspc rule -a 'Zathura:*'         desktop=media   follow=on state=tiled
 
 bspc rule -a 'Code:*'            desktop=code    follow=on
 bspc rule -a 'jetbrains-rider:*' desktop=code    follow=on
