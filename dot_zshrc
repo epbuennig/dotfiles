@@ -14,7 +14,7 @@ export EDITOR='/usr/bin/helix'
 export BROWSER='/bin/firefox'
 
 if [[ ! "" == *"${HOME}/.cargo/bin"* ]]; then
-    export PATH="${PATH}:~/.cargo/bin"
+    export PATH="${PATH}:${HOME}/.cargo/bin"
 fi
 
 # fix valgrind debug symbols
