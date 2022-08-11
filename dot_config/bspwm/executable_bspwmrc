@@ -3,66 +3,42 @@
 # fix some java apps
 export _JAVA_AWT_WM_NONREPARENTING=1
 
-#
 # sxhkd & polybar setup
-#
-
-pgrep -x sxhkd > /dev/null || sxhkd &
+$HOME/.config/sxhkd/launch.sh
 $HOME/.config/polybar/launch.sh
 
-
-#
 # setup desktops
-#
-
 bspc monitor DP-2 -d main firefox media mail code opera vm
 
 if [[ $(xrandr -q | grep 'HDMI-0 connected') ]]; then
     bspc monitor HDMI-0 -d discord media_second spotify
-    bspc rule -a 'discord:*' desktop=discord
+    bspc rule -a 'discord:*'     desktop=discord
     # TODO: spotify is not recognized by bspc
     # see: https://github.com/baskerville/bspwm/issues/291
-    bspc rule -a 'spotify:*' desktop=spotify
+    bspc rule -a 'spotify:*'     desktop=spotify
 fi
 
-
-#
 # config
-#
-
 # bspc config focus_follows_pointer true
-
 bspc config border_width         2
 bspc config window_gap           5
-
 bspc config split_ratio          0.50
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
-# gruvbox yellow and black-alt
-bspc config normal_border_color  '#665C54'
-bspc config focused_border_color '#FABD2F'
+bspc config normal_border_color  '#665C54' # gruvbox alt black
+bspc config focused_border_color '#FABD2F' # gruv box yellow
 
-
-#
 # rules
-#
+bspc rule -a 'firefox:*'         desktop=firefox follow=on
+bspc rule -a 'Opera:*'           desktop=opera   follow=off
 
-# browsing
-bspc rule -a 'firefox:*' desktop=firefox follow=on
-# TODO: follows even though follow=off
-bspc rule -a 'Opera:*' desktop=opera
+bspc rule -a 'vlc:*'             desktop=media   follow=on
 
-# media
-bspc rule -a 'vlc:*' desktop=media follow=on
+bspc rule -a 'Code:*'            desktop=code    follow=on
+bspc rule -a 'jetbrains-rider:*' desktop=code    follow=on
 
-# coding
-bspc rule -a 'Code:*' desktop=code follow=on
-bspc rule -a 'jetbrains-rider:*' desktop=code follow=on
+bspc rule -a 'Thunderbird:*'     desktop=mail    follow=on
 
-# mail and work
-bspc rule -a 'Thunderbird:*' desktop=mail follow=on
-
-# virtual
-bspc rule -a 'VirtualBoxVM:*' desktop=vm follow=on
+bspc rule -a 'VirtualBoxVM:*'    desktop=vm      follow=on
 
