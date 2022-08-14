@@ -34,6 +34,7 @@ alias sudo='sudo '
 alias vpn='protonvpn-cli'
 alias sed='sed -r'
 alias hx='helix'
+alias dots='chezmoi'
 
 ## additional git aliases
 alias gstn='git stash push --staged'
