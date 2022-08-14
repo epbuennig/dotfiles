@@ -1,7 +1,11 @@
 #!/bin/zsh
 
-if [[ ! $1 =~ 'Previous|Next|Play|Pause|PlayPause' ]]; then
-    echo "inlvaid input '$@', expected one of Previous | Next | Play | Pause | PlayPause"
+if [[ "${#}" != '1' ]]; then
+    echo "invalid agument count, expected 1, got ${#}: '$@'"
+fi
+
+if [[ ! "${1}" =~ 'Previous|Next|Play|Pause|PlayPause' ]]; then
+    echo "invalid first argument '${1}', expected one of 'Previous|Next|Play|Pause|PlayPause'"
     exit 1
 fi
 

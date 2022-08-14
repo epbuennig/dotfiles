@@ -34,7 +34,7 @@ super + {q,k}
 
 # volume
 XF86Audio{Mute,RaiseVolume,LowerVolume}
-    ~/.scripts/pw-setvol.sh {mute toggle,+0.05,-0.05}
+    ~/.scripts/pw-setvol.sh {mute toggle,incr 0.05,decr 0.05}
 
 super + XF86Audio{Mute,RaiseVolume,LowerVolume}
     ~/.scripts/spotify.sh {PlayPause,Next,Previous}

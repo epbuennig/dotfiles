@@ -1,29 +1,25 @@
 #!/bin/zsh
 
-local get_status() {
-    local state=$(protonvpn-cli s)
+if [[ "${#}" != '1' ]]; then
+    echo "invalid agument count, expected 1, got ${#}: '$@'"
+    exit 1
+fi
 
-    if [[ $state =~ 'No active Proton VPN connection\.' ]]; then
+local get_status() {
+    local _state=$(~/.scripts/vpn.sh status)
+
+    if [[ "${_state}" =~ '0' ]]; then
         echo '%{F#665C54}%{F-}'
     else
         echo '%{F#FABD2F}%{F-}'
     fi
 }
 
-if [[ $1 == 'status' ]]; then
-    get_status
-elif [[ $1 == 'toggle' ]]; then
-    local state=$(get_status)
-
-    if [[ $state =~ '' ]]; then
-        protonvpn-cli c -f &> /dev/null
-        echo '%{F#FABD2F}%{F-}'
-    else
-        protonvpn-cli d &> /dev/null
-        echo '%{F#665C54}%{F-}'
-    fi
-else
-    echo "invalid input '$@', expected one of status | toggle"
-    exit 1 
-fi
-
+case "${1}" in
+    'status' | 's') get_status;;
+    'toggle' | 't') ~/.scripts/vpn.sh status && get_status;;
+    *)
+        echo "invalid first argument '${1}', expected one of 'status|toggle'"
+        exit 1
+    ;;
+esac

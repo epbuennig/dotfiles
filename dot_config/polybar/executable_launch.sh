@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 
 killall -q polybar
 pgrep -x polybar > /dev/null && exit 1

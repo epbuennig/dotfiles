@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 
 # fix some java apps
 export _JAVA_AWT_WM_NONREPARENTING=1

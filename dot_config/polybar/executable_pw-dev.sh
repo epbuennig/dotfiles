@@ -1,24 +1,26 @@
 #!/bin/zsh
 
-local print_device() {
-    dev=$(~/.scripts/pw-getdev.sh name)
+if [[ "${#}" != '1' ]]; then
+    echo "invalid agument count, expected 1, got ${#}: '$@'"
+    exit 1
+fi
 
-    # speakers: alsa_output.pci-0000_00_1f.3.analog-stereo
-    # headphones: alsa_output.pci-0000_03_00.0.analog-stereo
-    if [[ $dev == 'alsa_output.pci-0000_00_1f.3.analog-stereo' ]]; then
+local print_device() {
+    local _dev=$(~/.scripts/pw-getdev.sh type)
+
+    if [[ "${_dev}" == 's' ]]; then
         echo ""
     else
         echo ""
     fi
 }
 
-if [[ $1 == 'status' ]]; then
-    print_device
-elif [[ $1 == 'toggle' ]]; then
-    ~/.scripts/pw-setdev.sh toggle
-    print_device
-else
-    echo "invalid input '$@', expected one of status | toggle"
-    exit 1
-fi
+case "${1}" in
+    'status' | 's') print_device;;
+    'toggle' | 't') ~/.scripts/pw-setdev.sh toggle && print_device;;
+    *)
+        echo "invalid first argument '${1}', expected one of 'status|toggle'"
+        exit 1
+    ;;
+esac
 
