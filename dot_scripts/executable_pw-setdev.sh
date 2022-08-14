@@ -9,7 +9,6 @@ fi
 
 local _headphones_name='alsa_output.pci-0000_03_00.0.analog-stereo'
 local _speakers_name='alsa_output.pci-0000_00_1f.3.analog-stereo'
-local _val=''
 
 case "${1}" in
     'toggle' | 't')
