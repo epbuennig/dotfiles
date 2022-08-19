@@ -47,5 +47,9 @@ if [[ -e $(which exa) ]]; then
     alias lt='exa --icons --tree --level'
 fi
 
+if [[ -e $(which garbage) ]]; then
+    alias rm='garbage put'
+fi
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
