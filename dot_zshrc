@@ -49,6 +49,7 @@ fi
 
 if [[ -e $(which garbage) ]]; then
     alias rm='garbage put'
+    alias trash='garbage'
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
