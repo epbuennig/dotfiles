@@ -65,7 +65,7 @@ message {
 }
 
 textbox {
-    hightlight: @hightlight;
+    highlight:  @highlight;
     text-color: @foreground;
 }
 
@@ -98,8 +98,8 @@ element normal.active {
 }
 
 element alternate.normal {
-    background-color: @alternate-normal-background;
-    text-color:       @alternate-normal-foreground;
+    background-color: @alternate-background;
+    text-color:       @alternate-foreground;
 }
 
 element alternate.urgent {
