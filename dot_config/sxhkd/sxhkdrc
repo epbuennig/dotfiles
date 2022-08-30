@@ -76,12 +76,12 @@ super + {comma,period}
 #
 
 # preselect regular
-super + ctrl + {Left,Down,Up,Right}
-    bspc node --presel-dir {west,south,north,east}
+# super + ctrl + {Left,Down,Up,Right}
+#     bspc node --presel-dir {west,south,north,east}
 
 # preselect cancel
-super + ctrl + c
-    bspc node --presel-dir cancel
+# super + ctrl + c
+#     bspc node --presel-dir cancel
 
 #
 # move/swap
