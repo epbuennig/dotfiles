@@ -10,8 +10,15 @@ plugins=(dotnet git tmux rust zsh-autosuggestions zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 # personal
-export EDITOR='/usr/bin/helix'
-export BROWSER='/bin/firefox'
+if [[ -e $(which helix) ]]; then
+    export EDITOR='/usr/bin/helix'
+else if [[ -e $(which nvim) ]]
+    export EDITOR='/usr/bin/nvim'
+fi
+
+if [[ -e $(which firefox) ]]; then
+    export BROWSER='/bin/firefox'
+fi
 
 if [[ ! "" == *"${HOME}/.cargo/bin"* ]]; then
     export PATH="${PATH}:${HOME}/.cargo/bin"
@@ -21,10 +28,12 @@ fi
 export DEBUGINFOD_URLS="https://debuginfod.archlinux.org"
 
 # setup gpg
-export GPG_TTY=$(tty)
-gpgconf --launch gpg-agent
+if [[ -e $(which gpgconf) ]]; then
+    export GPG_TTY=$(tty)
+    gpgconf --launch gpg-agent
+fi
 
-#export RUST_STD=TODO
+# TODO: make this a home only thing via chezmoi
 MEDIA="${HOME}/Data/media"
 
 # aliases
