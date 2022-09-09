@@ -11,6 +11,9 @@
 [includeIf "hasconfig:remote.*.url:git@git.ai.fh-erfurt.de:**/**"]
     path = .gitconfig-university
 
+[push]
+autoSetupRemote = true
+
 [merge]
     tool = nvimdiff
 [mergetool]
