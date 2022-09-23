@@ -24,10 +24,11 @@ case "${1}" in
 
         if [[ "${_state}" =~ '0' ]]; then
             protonvpn-cli c -f &> /dev/null
+            echo '1'
         else
             protonvpn-cli d &> /dev/null
+            echo '0'
         fi
-        echo "${_state}"
     ;;
 
     *)

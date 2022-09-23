@@ -17,7 +17,7 @@ local get_status() {
 
 case "${1}" in
     'status' | 's') get_status;;
-    'toggle' | 't') ~/.scripts/vpn.sh status && get_status;;
+    'toggle' | 't') ~/.scripts/vpn.sh toggle &> /dev/null && get_status;;
     *)
         echo "invalid first argument '${1}', expected one of 'status|toggle'"
         exit 1
