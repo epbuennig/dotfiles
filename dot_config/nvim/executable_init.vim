@@ -9,7 +9,7 @@
 :set colorcolumn=100
 
 " plugins
-call plug#begin('~/.vim/plug.vim')
+call plug#begin('~/.config/nvim/plugged')
 
 " UI improvements
 Plug 'itchyny/lightline.vim'

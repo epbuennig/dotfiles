@@ -2,11 +2,17 @@ theme = "gruvbox_original_dark_hard"
 
 [editor]
 rulers = [100]
+line-number = "relative"
+cursorline = true
+color-modes = true
+
+[editor.indent-guides]
+render = true
 
 [editor.cursor-shape]
 normal = "block"
 insert = "bar"
-select = "underline"
+select = "block"
 
 [editor.whitespace.render]
 space = "all"
@@ -17,3 +23,6 @@ newline = "none"
 space = "·"
 tab = "→"
 newline = "¬"
+
+[editor.lsp]
+auto-signature-help = false
