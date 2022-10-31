@@ -13,6 +13,12 @@ if [[ -e "${HOME}/.oh-my-zsh" ]]; then
 fi
 
 
+# do not record failed commands, this avoids suggesting them
+zshaddhistory() {
+    whence "${${(z)1}[1]}" >| /dev/null || return 1
+}
+
+
 # additional paths
 if [[ -e "${HOME}/.cargo/bin" && ! "$PATH" == *"${HOME}/.cargo/bin"* ]]; then
     export PATH="${PATH}:${HOME}/.cargo/bin"
