@@ -40,6 +40,10 @@ fi
 # fix valgrind debug symbols
 export DEBUGINFOD_URLS="https://debuginfod.archlinux.org"
 
+{{ if eq .chezmoi.hostname "hsh" -}}
+# using export here fails for whatever reason
+MEDIA="${HOME}/Data/media"
+{{- end }}
 
 # setup gpg
 if [[ -e $(which gpgconf) ]]; then
@@ -73,12 +77,3 @@ if [[ -e $(which garbage) ]]; then
     alias rm='garbage put'
     alias trash='garbage'
 fi
-
-
-# machine specific configuration
-{{- if eq .chezmoi.hostname "hsh" }}
-# using export here fails for whatever reason
-MEDIA="${HOME}/Data/media"
-{{- else }}
-# this machine has no specific configuration
-{{- end }}

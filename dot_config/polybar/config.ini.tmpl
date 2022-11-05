@@ -63,8 +63,8 @@ inherit = bar-base
 monitor = DP-2
 
 modules-left = arch-button bspwm-workspaces xwindow
-modules-center = haiku
-modules-right = filesystem audio-devices audio-devices-auto pulseaudio memory cpu vpn vpn-auto eth date
+modules-center = date
+modules-right = filesystem audio-devices audio-devices-auto pulseaudio memory cpu vpn vpn-auto eth
 
 [bar/top-side]
 inherit = bar-base
@@ -85,15 +85,11 @@ content = %{T2}%{F#FABD2F} %{T-}%{F-}
 
 click-left = rofi -show
 
-[module/haiku]
-type = custom/text
-
-content = %{T3}暫は  |  花の上なる  |  周夜哉%{T-}
-
 [module/bspwm-workspaces]
 type = internal/bspwm
 pin-workspaces = true
 
+{{ if eq .chezmoi.hostname "hsh" -}}
 # desktop side
 ws-icon-0 = discord;
 ws-icon-1 = media2;
@@ -107,6 +103,7 @@ ws-icon-6 = code;
 ws-icon-7 = mail;
 ws-icon-8 = opera;
 ws-icon-9 = vm;
+{{- end }}
 
 label-active = %{T2}%icon%%{T-}
 label-active-foreground = ${colors.primary}
@@ -134,8 +131,10 @@ type = internal/fs
 interval = 25
 
 mount-0 = /
+{{ if eq .chezmoi.hostname "hsh" -}}
 # mount-1 = /home/erxkk/data
 # mount-2 = /home/erxkk/backup
+{{- end }}
 
 label-mounted = %{F#FABD2F}%{F-} %percentage_used%%
 

@@ -95,6 +95,7 @@ super + shift + r
 super + shift + {Left,Down,Up,Right}
     bspc node -s {west,south,north,east}.local
  
+{{ if eq .chezmoi.hostname "hsh" -}}
 # move node to desktop
 super + shift + bracket{left,right}
     bspc node --to-desktop {prev,next}.local --follow
@@ -102,6 +103,15 @@ super + shift + bracket{left,right}
 # move node to monitor
 super + shift + {comma,period}
     bspc node --to-monitor {prev,next} --follow
+{{- else -}}
+# move node to desktop
+super + shift + {comma,period}
+    bspc node --to-desktop {prev,next}.local --follow
+
+# move node to monitor
+super + shift + {k,l}
+    bspc node --to-monitor {prev,next} --follow
+{{- end }}
 
 #
 # non tiling specific

@@ -1,21 +1,27 @@
-[include]
-    path = .gitconfig-personal
-
-[includeIf "gitdir:~/Source/github.com-business/"]
-    path = .gitconfig-business
-[includeIf "hasconfig:remote.*.url:git@github.com-business:**/**"]
-    path = .gitconfig-business
-
-[includeIf "gitdir:~/Source/git.ai.fh-erfurt.de/"]
-    path = .gitconfig-university
-[includeIf "hasconfig:remote.*.url:git@git.ai.fh-erfurt.de:**/**"]
-    path = .gitconfig-university
+[color]
+    ui = true
 
 [push]
-autoSetupRemote = true
+    autoSetupRemote = true
 
 [merge]
     tool = nvimdiff
 [mergetool]
     path = nvim
+
+
+[user]
+    email = inquiries@epbuennig.me
+    name = epbuennig
+
+# override settings for specific ssh keys disambiguated by remote
+[includeIf "gitdir:~/Source/github.com-old/"]
+    path = ~/Source/github.com-old/.gitconfig
+
+[includeIf "gitdir:~/Source/github.com/"]
+    path = ~/Source/github.com/.gitconfig
+
+[includeIf "gitdir:~/Source/git.ai.fh-erfurt.de/"]
+    path = ~/Source/git.ai.fh-erfurt.de/.gitconfig
+
 

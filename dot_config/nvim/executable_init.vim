@@ -4,7 +4,7 @@
 :set shiftwidth=4
 :set smartindent
 
-"tui 
+" tui
 :set number relativenumber
 :set colorcolumn=100
 
@@ -23,7 +23,7 @@ Plug 'shinchu/lightline-gruvbox.vim'
 
 " easier file finding
 Plug 'airblade/vim-rooter'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 call plug#end()
