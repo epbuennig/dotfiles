@@ -49,4 +49,8 @@ bspc rule -a 'libreoffice:*'     desktop=mail    follow=on
 bspc rule -a 'Soffice*:*'        desktop=mail    follow=on
 
 bspc rule -a 'VirtualBoxVM:*'    desktop=vm      follow=on
+{{- else -}}
+bspc rule -a 'firefox:*'     desktop=1 follow=off
+bspc rule -a 'discord:*'     desktop=2 follow=off
+bspc rule -a 'Element:*'     desktop=3 follow=off
 {{- end }}
