@@ -14,6 +14,7 @@ bspc monitor DP-2 -d main firefox media mail code opera vm
 if [[ $(xrandr -q | grep 'HDMI-0 connected') ]]; then
     bspc monitor HDMI-0 -d discord media2 spotify
     bspc rule -a 'discord:*'     desktop=discord follow=off
+    bspc rule -a 'Element:*'     desktop=media2  follow=off
     # TODO: spotify is not recognized by bspc
     # see: https://github.com/baskerville/bspwm/issues/291
     bspc rule -a 'spotify:*'     desktop=spotify follow=off
