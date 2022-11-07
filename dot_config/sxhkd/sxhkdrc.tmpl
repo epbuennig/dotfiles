@@ -63,6 +63,7 @@ alt + Tab
 super + {Left,Down,Up,Right}
     bspc node -f {west,south,north,east}.local
 
+{{ if eq .chezmoi.hostname "hsh" -}}
 # focus the next/prev desktop
 super + bracket{left,right}
     bspc desktop -f {prev,next}.local
@@ -70,18 +71,15 @@ super + bracket{left,right}
 # focus next/prev monitor
 super + {comma,period}
     bspc monitor -f {prev,next}
+{{- else -}}
+# focus the next/prev desktop
+super + {comma,period}
+    bspc desktop -f {prev,next}.local
 
-#
-# preselect
-#
-
-# preselect regular
-# super + ctrl + {Left,Down,Up,Right}
-#     bspc node --presel-dir {west,south,north,east}
-
-# preselect cancel
-# super + ctrl + c
-#     bspc node --presel-dir cancel
+# focus next/prev monitor
+super + {k,l}
+    bspc monitor -f {prev,next}
+{{- end }}
 
 #
 # move/swap

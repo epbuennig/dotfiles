@@ -48,9 +48,6 @@ font-0 = FiraCode Nerd Font Mono;2
 # module bspwm
 font-1 = FiraCode Nerd Font Mono:size=16;3
 
-# module haiki
-font-2 = Noto Sans CJK JP:size=14;3
-
 cursor-click = pointer
 cursor-scroll = ns-resize
 
@@ -58,24 +55,38 @@ enable-ipc = true
 
 wm-restack = bspwm
 
-[bar/top]
+
+[bar/top-primary]
 inherit = bar-base
+{{ if eq .chezmoi.hostname "hsh" -}}
 monitor = DP-2
+{{- else -}}
+monitor = eDP-1
+{{- end }}
 
 modules-left = arch-button bspwm-workspaces xwindow
 modules-center = date
+{{ if eq .chezmoi.hostname "hsh" -}}
 modules-right = filesystem audio-devices audio-devices-auto pulseaudio memory cpu vpn vpn-auto eth
+{{- else -}}
+modules-right = filesystem pulseaudio memory cpu battery wifi
+{{- end }}
 
-[bar/top-side]
+
+[bar/top-secondary]
 inherit = bar-base
+{{ if eq .chezmoi.hostname "hsh" -}}
 monitor = HDMI-0
+{{- else -}}
+monitor = HDMI-1
+{{- end }}
 
-modules-left = arch-button bspwm-workspaces
+modules-left = arch-button bspwm-workspaces xwindow
 modules-right = date
 
 
 #
-# modoules
+# modules
 #
 
 [module/arch-button]
@@ -84,6 +95,7 @@ type = custom/text
 content = %{T2}%{F#FABD2F} %{T-}%{F-}
 
 click-left = rofi -show
+
 
 [module/bspwm-workspaces]
 type = internal/bspwm
@@ -103,7 +115,6 @@ ws-icon-6 = code;
 ws-icon-7 = mail;
 ws-icon-8 = opera;
 ws-icon-9 = vm;
-{{- end }}
 
 label-active = %{T2}%icon%%{T-}
 label-active-foreground = ${colors.primary}
@@ -121,26 +132,47 @@ label-urgent-padding = 1
 label-empty = %{T2}%icon%%{T-}
 label-empty-foreground = ${colors.disabled}
 label-empty-padding = 1
+{{- else -}}
+label-active = %{T2}%name%%{T-}
+label-active-foreground = ${colors.primary}
+label-active-background = ${colors.background-alt}
+label-active-underline= ${colors.primary}
+label-active-padding = 1
+
+label-occupied = %{T2}%name%%{T-}
+label-occupied-padding = 1
+
+label-urgent = %{T2}%name%%{T-}
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 1
+
+label-empty = %{T2}%name%%{T-}
+label-empty-foreground = ${colors.disabled}
+label-empty-padding = 1
+{{- end }}
+
 
 [module/xwindow]
 type = internal/xwindow
+{{ if eq .chezmoi.hostname "hsh" -}}
 label = %title:0:60:...%
+{{- else -}}
+label = %title:0:35:...%
+{{- end }}
+
 
 [module/filesystem]
 type = internal/fs
 interval = 25
 
 mount-0 = /
-{{ if eq .chezmoi.hostname "hsh" -}}
-# mount-1 = /home/erxkk/data
-# mount-2 = /home/erxkk/backup
-{{- end }}
 
 label-mounted = %{F#FABD2F}%{F-} %percentage_used%%
 
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.disabled}
 
+{{ if eq .chezmoi.hostname "hsh" -}}
 # see: https://github.com/polybar/polybar/issues/786
 [module/audio-devices]
 type = custom/ipc
@@ -153,6 +185,7 @@ click-left = polybar-msg action '#audio-devices.hook.1'
 
 format = %{T2}<output>%{T-}
 
+
 # TODO: remove this if possible
 # polybar starts faster than the sound stuff so this will correct the initial value if it's
 # incorrect and regularly correct the values in case something went out of sync by manual setting
@@ -162,6 +195,7 @@ interval = 5
 
 exec = polybar-msg action '#audio-devices.hook.0'
 label =
+{{- end }}
 
 [module/pulseaudio]
 type = internal/pulseaudio
@@ -176,6 +210,7 @@ label-muted-foreground = ${colors.disabled}
 ramp-volume-0 = 
 ramp-volume-1 = 
 ramp-volume-2 = 
+
 
 [module/xkeyboard]
 type = internal/xkeyboard
@@ -192,20 +227,65 @@ label-layout-foreground = ${colors.primary}
 # label-indicator-foreground = ${colors.background}
 # label-indicator-background = ${colors.secondary}
 
+
 [module/memory]
 type = internal/memory
 interval = 2
-format-prefix = "RAM "
+format-prefix = " "
 format-prefix-foreground = ${colors.primary}
 label = %percentage_used:2%%
+
 
 [module/cpu]
 type = internal/cpu
 interval = 2
-format-prefix = "CPU "
+format-prefix = " "
 format-prefix-foreground = ${colors.primary}
 label = %percentage:2%%
 
+
+[module/battery]
+type = internal/battery
+# battery = BAT0
+# adapter = ADP1
+
+full-at = 99
+low-at = 5
+
+label-full = full
+label-low = LOW
+
+format-discharging = "%{T2}<animation-discharging>%{T-}%{F-} <label-discharging>"
+format-charging = "%{T2}<animation-charging>%{T-}%{F-} <label-charging>"
+format-full = "%{T2}%{T-}%{F-} <label-full>"
+format-low = "%{T2}%{T-} <label-low>"
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-5 = 
+animation-charging-6 = 
+animation-charging-framerate = 500
+
+animation-discharging-0 = 
+animation-discharging-1 = 
+animation-discharging-2 = 
+animation-discharging-3 = 
+animation-discharging-4 = 
+animation-discharging-5 = 
+animation-discharging-6 = 
+animation-discharging-framerate = 500
+
+format-discharging-foreground = ${colors.primary}
+format-charging-foreground = ${colors.primary}
+format-full-foreground = ${colors.primary}
+format-low-background = ${colors.alert}
+format-low-foreground = ${colors.background}
+
+
+{{ if eq .chezmoi.hostname "hsh" -}}
 [module/vpn]
 type = custom/ipc
 initial = 1
@@ -223,17 +303,30 @@ interval = 5
 
 exec = polybar-msg action '#vpn.hook.0'
 label =
+{{- end }}
 
-[module/eth]
+
+[module/network]
 type = internal/network
 interval = 5
-interface-type = wired
+interface-type = wireless
 
 # don't know how I can set this in a less manual way
 format-connected = <label-connected>
 label-connected = %{F#FABD2F}%{T2}%{T-}%{F-} %upspeed:8% %{F#FABD2F}%{T2}%{T-}%{F-} %downspeed:8%
 format-disconnected = <label-disconnected>
 label-disconnected = %{F#FABD2F}%ifname%%{F#707880} disconnected
+
+
+[module/eth]
+type = network
+interface-type = wired
+
+
+[module/wifi]
+type = network
+interface-type = wireless
+
 
 [module/date]
 type = internal/date

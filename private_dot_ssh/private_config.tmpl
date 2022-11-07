@@ -10,18 +10,19 @@ Host gitlab.com
     IdentityFile ~/.ssh/gitlab
     IdentitiesOnly yes
 
+{{ if eq .chezmoi.hostname "hsh" -}}
 Host github.com-old
     HostName github.com
     User git
     IdentityFile ~/.ssh/github_old
     IdentitiesOnly yes
+{{- end -}}
 
 Host github.com
     HostName github.com
     User git
     IdentityFile ~/.ssh/github
     IdentitiesOnly yes
-
 
 Host 192.168.2.101
     HostName 192.168.2.101

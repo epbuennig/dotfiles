@@ -1,0 +1,15 @@
+#!/bin/sh
+
+killall -q polybar
+pgrep -x polybar > /dev/null && exit 1
+
+polybar top-primary &
+
+{{if eq .chezmoi.hostname "hsh" -}}
+if [[ $(xrandr -q | grep 'HDMI-0 connected' ) ]]; then
+{{- else -}}
+if [[ $(xrandr -q | grep 'HDMI-1 connected' ) ]]; then
+{{- end }}
+    polybar top-secondary &
+fi
+

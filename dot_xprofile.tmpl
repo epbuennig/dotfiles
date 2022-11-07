@@ -1,0 +1,20 @@
+#! /bin/bash
+
+{{ if eq .chezmoi.hostname "hsh" -}}
+# needed for protonvpn to get the secrets out of gnome-keyring
+# see: https://github.com/ProtonVPN/linux-cli/issues/49
+nm-applet &
+
+# setup monitor layout
+xrandr \
+    --output HDMI-0 --mode 1280x1024 --pos 0x285  --rotate normal \
+    --output DP-2   --mode 2560x1440 --pos 1280x0 --rotate normal
+
+# setup compositor
+picom -b
+
+# background
+nitrogen --restore &
+{{- else -}}
+xrandr --output HDMI-1 --left-of eDP-1 --auto
+{{- end }}
