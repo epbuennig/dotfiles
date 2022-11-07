@@ -67,9 +67,9 @@ monitor = eDP-1
 modules-left = arch-button bspwm-workspaces xwindow
 modules-center = date
 {{ if eq .chezmoi.hostname "hsh" -}}
-modules-right = filesystem audio-devices audio-devices-auto pulseaudio memory cpu vpn vpn-auto eth
+modules-right = filesystem audio-devices audio-devices-auto pulseaudio memory cpu vpn vpn-auto network
 {{- else -}}
-modules-right = filesystem pulseaudio memory cpu battery wifi
+modules-right = filesystem pulseaudio memory cpu battery network
 {{- end }}
 
 
@@ -116,11 +116,11 @@ ws-icon-7 = mail;
 ws-icon-8 = opera;
 ws-icon-9 = vm;
 
-label-active = %{T2}%icon%%{T-}
-label-active-foreground = ${colors.primary}
-label-active-background = ${colors.background-alt}
-label-active-underline= ${colors.primary}
-label-active-padding = 1
+label-focused = %{T2}%icon%%{T-}
+label-focused-foreground = ${colors.primary}
+label-focused-background = ${colors.background-alt}
+label-focused-underline= ${colors.primary}
+label-focused-padding = 1
 
 label-occupied = %{T2}%icon%%{T-}
 label-occupied-padding = 1
@@ -133,11 +133,11 @@ label-empty = %{T2}%icon%%{T-}
 label-empty-foreground = ${colors.disabled}
 label-empty-padding = 1
 {{- else -}}
-label-active = %{T2}%name%%{T-}
-label-active-foreground = ${colors.primary}
-label-active-background = ${colors.background-alt}
-label-active-underline= ${colors.primary}
-label-active-padding = 1
+label-focused = %{T2}%name%%{T-}
+label-focused-foreground = ${colors.primary}
+label-focused-background = ${colors.background-alt}
+label-focused-underline= ${colors.primary}
+label-focused-padding = 1
 
 label-occupied = %{T2}%name%%{T-}
 label-occupied-padding = 1
@@ -309,23 +309,17 @@ label =
 [module/network]
 type = internal/network
 interval = 5
+{{ if eq .chezmoi.hostname "hsh" -}}
+interface-type = wired
+{{- else -}}
 interface-type = wireless
+{{- end }}
 
 # don't know how I can set this in a less manual way
 format-connected = <label-connected>
 label-connected = %{F#FABD2F}%{T2}%{T-}%{F-} %upspeed:8% %{F#FABD2F}%{T2}%{T-}%{F-} %downspeed:8%
 format-disconnected = <label-disconnected>
 label-disconnected = %{F#FABD2F}%ifname%%{F#707880} disconnected
-
-
-[module/eth]
-type = network
-interface-type = wired
-
-
-[module/wifi]
-type = network
-interface-type = wireless
 
 
 [module/date]
