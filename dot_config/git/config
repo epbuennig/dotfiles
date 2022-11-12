@@ -1,8 +1,10 @@
 [color]
     ui = true
 
+
 [push]
     autoSetupRemote = true
+
 
 [merge]
     tool = nvimdiff
@@ -13,6 +15,20 @@
 [user]
     email = inquiries@epbuennig.me
     name = epbuennig
+
+
+[url "git@github.com:"]
+    insteadOf = gh:
+
+[url "git@github.com:epbuennig/"]
+    insteadOf = gh:/
+
+[url "git@gitlab.com:"]
+    insteadOf = gl:
+
+[url "git@git.ai.fh-erfurt.de:"]
+    insteadOf = fh:
+
 
 # override settings for specific ssh keys disambiguated by remote
 [includeIf "gitdir:~/Source/github.com-old/"]
