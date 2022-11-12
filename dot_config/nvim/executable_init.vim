@@ -26,6 +26,11 @@ Plug 'airblade/vim-rooter'
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
+" tree-sitter
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+Plug 'IndianBoy42/tree-sitter-just'
+
 call plug#end()
 
 " setup theming 
@@ -36,8 +41,10 @@ autocmd vimenter * ++nested colorscheme gruvbox
 lua << END
 
 require('gitsigns').setup()
+-- require('tree-sitter-just').setup() -- this requires an arg
 
 END
+
 
 " lightline setup
 let g:lightline = {
@@ -67,4 +74,3 @@ if executable('rg')
     set grepprg=rg\ --no-heading\ --vimgrep
     set grepformat=%f:%l:%c:%m
 endif
-
