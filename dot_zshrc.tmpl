@@ -36,6 +36,14 @@ if [[ -e $(which firefox) ]]; then
     export BROWSER=$(which firefox)
 fi
 
+if [[ -e $(which bat) ]]; then
+    export MANPAGER="sh -c 'col -bx | $(which bat) --style=plain -l man -p'"
+fi
+
+if [[ -e $(which delta) ]]; then
+    export GIT_PAGER=$(which delta)
+fi
+
 
 # fix valgrind debug symbols
 export DEBUGINFOD_URLS="https://debuginfod.archlinux.org"
