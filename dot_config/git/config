@@ -11,6 +11,10 @@
 [mergetool]
     path = nvim
 
+[delta]
+    line-numbers = true
+    syntax-theme = gruvbox-dark
+
 
 [user]
     email = inquiries@epbuennig.me
