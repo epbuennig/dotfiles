@@ -13,10 +13,12 @@ if [[ -e "${HOME}/.oh-my-zsh" ]]; then
 fi
 
 
+# TODO: this is currently broken to some degree, it only prevents recording commands that do not
+#       exist, i also cannot reprodice what the weird argument to whence even does
 # do not record failed commands, this avoids suggesting them
-zshaddhistory() {
-    whence "${${(z)1}[1]}" >| /dev/null || return 1
-}
+# zshaddhistory() {
+#     whence "${${(z)1}[1]}" >| /dev/null || return 1
+# }
 
 
 # additional paths
