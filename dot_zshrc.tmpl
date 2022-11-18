@@ -21,7 +21,11 @@ zshaddhistory() {
 
 # additional paths
 if [[ -e "${HOME}/.cargo/bin" && ! "$PATH" == *"${HOME}/.cargo/bin"* ]]; then
-    export PATH="${PATH}:${HOME}/.cargo/bin"
+    export PATH="${HOME}/.cargo/bin:${PATH}"
+fi
+
+if [[ -e "${HOME}/.local/bin" && ! "$PATH" == *"${HOME}/.local/bin"* ]]; then
+    export PATH="${HOME}7.local/bin:${PATH}"
 fi
 
 
