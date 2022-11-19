@@ -34,7 +34,10 @@ fi
 # program exports
 if [[ -e $(which helix) ]]; then
     export EDITOR=$(which helix)
-else if [[ -e $(which nvim) ]]
+    alias hx='helix'
+elif [[ -e $(which hx) ]]; then
+    export EDITOR=$(which hx)
+elif [[ -e $(which nvim) ]]; then
     export EDITOR=$(which nvim)
 fi
 
@@ -72,7 +75,6 @@ alias brb='reboot'
 alias sudo='sudo '
 alias vpn='protonvpn-cli'
 alias sed='sed -r'
-alias hx='helix'
 alias dots='chezmoi'
 alias ip='ip -c -p'
 
