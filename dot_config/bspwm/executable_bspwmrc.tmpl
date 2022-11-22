@@ -7,24 +7,49 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 $HOME/.config/sxhkd/launch.sh
 $HOME/.config/polybar/launch.sh
 
-# setup desktops
 {{ if eq .chezmoi.hostname "hsh" -}}
-bspc monitor DP-2 -d main firefox media mail code opera vm
+M0="DP-2"
+M1="HDMI-0"
+{{- else -}}
+M0="eDP-1"
+M1="HDMI-1"
+{{- end }}
 
-if [[ $(xrandr -q | grep 'HDMI-0 connected') ]]; then
-    bspc monitor HDMI-0 -d discord media2 spotify
-    bspc rule -a 'discord:*'     desktop=discord follow=off
-    bspc rule -a 'Element:*'     desktop=media2  follow=off
+# primary
+bspc monitor ${M0} -d I-0 I-1 I-2 I-3 I-4 I-5 I-6 I-7 I-8 I-9
+{{ if eq .chezmoi.hostname "hsh" -}}
+bspc rule -a 'firefox:*'         monitor=${M0} desktop=I-1 follow=on
+
+bspc rule -a 'vlc:*'             monitor=${M0} desktop=I-2 follow=on
+bspc rule -a 'Zathura:*'         monitor=${M0} desktop=I-2 follow=on state=tiled
+
+bspc rule -a 'Thunderbird:*'     monitor=${M0} desktop=I-3 follow=on
+bspc rule -a 'libreoffice:*'     monitor=${M0} desktop=I-3 follow=on
+bspc rule -a 'Soffice*:*'        monitor=${M0} desktop=I-3 follow=on
+
+bspc rule -a 'Code:*'            monitor=${M0} desktop=I-4 follow=on
+bspc rule -a 'jetbrains-rider:*' monitor=${M0} desktop=I-4 follow=on
+
+bspc rule -a 'Opera:*'           monitor=${M0} desktop=I-5 follow=off
+
+bspc rule -a 'VirtualBoxVM:*'    monitor=${M0} desktop=I-6 follow=on
+{{- else -}}
+bspc rule -a 'firefox:*' monitor=${M0} desktop=I-1 follow=off
+bspc rule -a 'Element:*' monitor=${M0} desktop=I-2 follow=off
+bspc rule -a 'discord:*' monitor=${M0} desktop=I-3 follow=off
+{{- end }}
+
+# secondary
+if [[ $(xrandr -q | grep "${M1} connected") ]]; then
+    bspc monitor ${M1} -d II-0 II-1 II-2 II-3 II-4 II-5 II-6 II-7 II-8 II-9
+{{ if eq .chezmoi.hostname "hsh" -}}
+    bspc rule -a 'discord:*'     monitor=${M1} desktop=II-0 follow=off
+    bspc rule -a 'Element:*'     monitor=${M1} desktop=II-1 follow=off
     # TODO: spotify is not recognized by bspc
     # see: https://github.com/baskerville/bspwm/issues/291
-    bspc rule -a 'spotify:*'     desktop=spotify follow=off
-fi
-{{- else -}}
-bspc monitor eDP-1 -d 0 1 2 3 4 5 6 7 8 9
-if [[ $(xrandr -q | grep 'HDMI-1 connected') ]]; then
-    bspc monitor HDMI-1 -d 0 1 2 3 4 5 6 7 8 9
-fi
+    bspc rule -a 'spotify:*'     monitor=${M1} desktop=II-2 follow=off
 {{- end }}
+fi
 
 # config
 bspc config border_width         2
@@ -35,25 +60,3 @@ bspc config gapless_monocle      true
 
 bspc config normal_border_color  '#665C54' # gruvbox alt black
 bspc config focused_border_color '#FABD2F' # gruv box yellow
-
-{{ if eq .chezmoi.hostname "hsh" -}}
-# rules
-bspc rule -a 'firefox:*'         desktop=firefox follow=on
-bspc rule -a 'Opera:*'           desktop=opera   follow=off
-
-bspc rule -a 'vlc:*'             desktop=media   follow=on
-bspc rule -a 'Zathura:*'         desktop=media   follow=on state=tiled
-
-bspc rule -a 'Code:*'            desktop=code    follow=on
-bspc rule -a 'jetbrains-rider:*' desktop=code    follow=on
-
-bspc rule -a 'Thunderbird:*'     desktop=mail    follow=on
-bspc rule -a 'libreoffice:*'     desktop=mail    follow=on
-bspc rule -a 'Soffice*:*'        desktop=mail    follow=on
-
-bspc rule -a 'VirtualBoxVM:*'    desktop=vm      follow=on
-{{- else -}}
-bspc rule -a 'firefox:*'     desktop=1 follow=off
-bspc rule -a 'Element:*'     desktop=2 follow=off
-bspc rule -a 'discord:*'     desktop=3 follow=off
-{{- end }}
