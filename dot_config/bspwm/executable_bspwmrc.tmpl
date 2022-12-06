@@ -36,6 +36,7 @@ bspc rule -a 'VirtualBoxVM:*'    monitor=${M0} desktop=I-6 follow=on
 {{- else -}}
 bspc rule -a 'firefox:*' monitor=${M0} desktop=I-1 follow=off
 bspc rule -a 'Element:*' monitor=${M0} desktop=I-2 follow=off
+bspc rule -a 'Cinny:*'   monitor=${M0} desktop=I-2 follow=off state=tiled
 bspc rule -a 'discord:*' monitor=${M0} desktop=I-3 follow=off
 {{- end }}
 
@@ -43,11 +44,12 @@ bspc rule -a 'discord:*' monitor=${M0} desktop=I-3 follow=off
 if [[ $(xrandr -q | grep "${M1} connected") ]]; then
     bspc monitor ${M1} -d II-0 II-1 II-2 II-3 II-4 II-5 II-6 II-7 II-8 II-9
 {{ if eq .chezmoi.hostname "hsh" -}}
-    bspc rule -a 'discord:*'     monitor=${M1} desktop=II-0 follow=off
-    bspc rule -a 'Element:*'     monitor=${M1} desktop=II-1 follow=off
-    # TODO: spotify is not recognized by bspc
+    bspc rule -a 'discord:*' monitor=${M1} desktop=II-0 follow=off
+    bspc rule -a 'Element:*' monitor=${M1} desktop=II-2 follow=off
+    bspc rule -a 'Cinny:*'   monitor=${M1} desktop=II-2 follow=off state=tiled
+    # BUG: spotify is not recognized by bspc
     # see: https://github.com/baskerville/bspwm/issues/291
-    bspc rule -a 'spotify:*'     monitor=${M1} desktop=II-2 follow=off
+    bspc rule -a 'spotify:*' monitor=${M1} desktop=II-3 follow=off
 {{- end }}
 fi
 
