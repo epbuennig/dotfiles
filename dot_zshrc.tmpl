@@ -53,6 +53,13 @@ if [[ -e $(which delta) ]]; then
     export GIT_PAGER=$(which delta)
 fi
 
+# TODO: this belongs in a one time setup file, see chezmoi scripts
+# if [[ -e $(which xdg-mime) ]]; then
+#     if [[ -e $(which zathura) ]]; then
+#         # TODO: check for existence of mupdf plugin
+#         xdg-mime default org.pwmt.zahtura.desktop application/pdf
+#     fi
+# fi
 
 # fix valgrind debug symbols
 export DEBUGINFOD_URLS="https://debuginfod.archlinux.org"
