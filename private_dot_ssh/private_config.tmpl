@@ -24,8 +24,18 @@ Host github.com
     IdentityFile ~/.ssh/github
     IdentitiesOnly yes
 
+{{ if eq .chezmoi.hostname "epb-thinkpad" -}}
+Host fs.bj-ig.de
+    HostName fs.bj-ig.de
+    User erik
+    IdentityFile ~/.ssh/fs_bj_ig
+    IdentitiesOnly yes
+{{- end }}
+
+{{ if eq .chezmoi.hostname "hsh" -}}
 Host 192.168.2.101
     HostName 192.168.2.101
     User pi
     IdentityFile ~/.ssh/pi
     IdentitiesOnly yes
+{{- end }}
