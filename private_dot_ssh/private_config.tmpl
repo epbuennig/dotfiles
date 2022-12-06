@@ -25,11 +25,13 @@ Host github.com
     IdentitiesOnly yes
 
 {{ if eq .chezmoi.hostname "epb-thinkpad" -}}
-Host fs.bj-ig.de
+Host fs fs.bj-ig.de
     HostName fs.bj-ig.de
     User erik
     IdentityFile ~/.ssh/fs_bj_ig
     IdentitiesOnly yes
+    HostKeyAlgorithms +ssh-rsa
+    PubKeyAcceptedAlgorithms +ssh-rsa
 {{- end }}
 
 {{ if eq .chezmoi.hostname "hsh" -}}
