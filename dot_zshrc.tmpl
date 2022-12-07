@@ -37,6 +37,7 @@ if [[ -e $(which helix) ]]; then
     alias hx='helix'
 elif [[ -e $(which hx) ]]; then
     export EDITOR=$(which hx)
+    export HELIX_RUNTIME="${HOME}/.local/share/helix/runtime"
 elif [[ -e $(which nvim) ]]; then
     export EDITOR=$(which nvim)
 fi
