@@ -90,6 +90,10 @@ alias ip='ip -c -p'
 alias gcan='git commit -v --amend --no-edit'
 alias gstn='git stash push --staged'
 
+if [[ -e $(which docker) ]]; then
+    {{ "alias dpss='docker ps --format \"table {{.ID}}\\t{{.CreatedAt}}\\t{{.Status}}\\t{{.Names}}\"'" }}
+fi
+
 ## alias overrides
 if [[ -e $(which exa) ]]; then
     alias ls='exa --icons'
