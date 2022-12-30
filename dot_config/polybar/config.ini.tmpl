@@ -67,7 +67,7 @@ monitor = eDP-1
 modules-left = arch-button bspwm-workspaces xwindow
 modules-center = date
 {{ if eq .chezmoi.hostname "hsh" -}}
-modules-right = filesystem audio-devices audio-devices-auto pulseaudio memory cpu vpn vpn-auto network
+modules-right = redshift redshift-auto filesystem audio-devices audio-devices-auto pulseaudio memory cpu vpn vpn-auto network
 {{- else -}}
 modules-right = filesystem pulseaudio memory cpu battery network
 {{- end }}
@@ -137,6 +137,26 @@ type = internal/xwindow
 label = %title:0:60:...%
 {{- else -}}
 label = %title:0:35:...%
+{{- end }}
+
+
+{{ if eq .chezmoi.hostname "hsh" -}}
+[module/redshift]
+type = custom/ipc
+initial = 1
+
+hook-0 = ~/.config/polybar/redshift.sh status
+
+format = %{T2}<output>%{T-}
+
+
+# this could be done with hooks instead, avoiding constant polling and parsing
+[module/redshift-auto]
+type = custom/script
+interval = 5
+
+exec = polybar-msg action '#status.hook.0'
+label =
 {{- end }}
 
 
