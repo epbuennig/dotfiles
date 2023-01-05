@@ -67,7 +67,8 @@ monitor = eDP-1
 modules-left = arch-button bspwm-workspaces xwindow
 modules-center = date
 {{ if eq .chezmoi.hostname "hsh" -}}
-modules-right = redshift redshift-auto filesystem audio-devices audio-devices-auto pulseaudio memory cpu vpn vpn-auto network
+# modules-right = redshift redshift-auto filesystem audio-devices audio-devices-auto pulseaudio memory cpu vpn vpn-auto network
+modules-right = redshift redshift-auto filesystem audio-devices audio-devices-auto pulseaudio memory cpu network
 {{- else -}}
 modules-right = filesystem pulseaudio memory cpu battery network
 {{- end }}
