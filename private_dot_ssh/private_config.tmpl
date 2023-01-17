@@ -24,7 +24,6 @@ Host github.com
     IdentityFile ~/.ssh/github
     IdentitiesOnly yes
 
-{{ if eq .chezmoi.hostname "epb-thinkpad" -}}
 Host fs fs.bj-ig.de
     HostName fs.bj-ig.de
     User erik
@@ -32,7 +31,6 @@ Host fs fs.bj-ig.de
     IdentitiesOnly yes
     HostKeyAlgorithms +ssh-rsa
     PubKeyAcceptedAlgorithms +ssh-rsa
-{{- end }}
 
 {{ if eq .chezmoi.hostname "hsh" -}}
 Host 192.168.2.101
