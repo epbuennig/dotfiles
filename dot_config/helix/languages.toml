@@ -6,3 +6,31 @@ rulers = [80]
 [[language]]
 name = "latex"
 indent = { tab-width = 4, unit = "    " }
+
+
+[[language]]
+name = "typst"
+scope = "source.typst"
+injection-regex = "^typ(st)?$"
+file-types = ["typ"]
+roots = []
+comment-token = "//"
+indent = { tab-width = 2, unit = "  " }
+language-server.command = "typst-lsp"
+
+[[grammar]]
+name = "typst"
+source = { git = "https://github.com/TheOnlyMrCat/tree-sitter-typst", rev = "dfc0efc184e59e3fad7c9da8e461688ddeecc954" }
+
+
+[[language]]
+name = "just"
+scope = "source.just"
+injection-regex = "^just?$"
+file-types = ["just", "justfile"]
+roots = []
+comment-token = "#"
+
+[[grammar]]
+name = "just"
+source = { git = "https://github.com/IndianBoy42/tree-sitter-just", rev = "4e5f5f3ff37b12a1bbf664eb3966b3019e924594" }
