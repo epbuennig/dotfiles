@@ -20,7 +20,7 @@ language-server.command = "typst-lsp"
 
 [[grammar]]
 name = "typst"
-source = { git = "https://github.com/TheOnlyMrCat/tree-sitter-typst", rev = "dfc0efc184e59e3fad7c9da8e461688ddeecc954" }
+source = { git = "https://github.com/frozolotl/tree-sitter-typst/", rev = "191ba54d6a9a50e3e8c047afd598b16298cb8135" }
 
 
 [[language]]
