@@ -33,6 +33,9 @@
 [url "git@git.ai.fh-erfurt.de:"]
     insteadOf = fh:
 
+[url "git@git.ai.fh-erfurt.de:epbuennig/"]
+    insteadOf = fh:/
+
 
 # override settings for specific ssh keys disambiguated by remote
 [includeIf "gitdir:~/Source/github.com-old/"]
