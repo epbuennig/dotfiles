@@ -16,7 +16,9 @@ case "${1}" in
 
         IFS=$'\n' _sink_ids=($(pw-dump | jq ".[]
             | select(.type == \"PipeWire:Interface:Node\")
-            | select((.info.props.\"node.name\"| test(\"${_headphones_name}|${_speakers_name}\")))
+            | select(.info.props.\"alsa.card\" != null)
+            | select((.info.props.\"factory.name\" | test(\".*sink\")))
+            | select((.info.props.\"node.name\" | test(\"${_headphones_name}|${_speakers_name}\")))
             | .id"))
 
         # there are only 2 on this pc
