@@ -31,8 +31,7 @@ module completions {
   #
   # This is a simplified version of completions for git branches and git remotes
   def "nu-complete git branches" [] {
-    (^git branch | lines | each { |line| $line | str replace '[\*\+] ' '' | str trim })
-    | append (^git tag -l | lines)
+    ^git branch | lines | each { |line| $line | str replace '[\*\+] ' '' | str trim }
   }
 
   def "nu-complete git remotes" [] {
@@ -42,7 +41,7 @@ module completions {
   # Download objects and refs from another repository
   export extern "git fetch" [
     repository?: string@"nu-complete git remotes" # name of the repository to fetch
-    branch?: string@"nu-complete git branches" # name of the branch to fetch
+    branch?: string@"nu-complete git branches"    # name of the branch to fetch
     --all                                         # Fetch all remotes
     --append(-a)                                  # Append ref names and object names to .git/FETCH_HEAD
     --atomic                                      # Use an atomic transaction to update local refs.
@@ -118,7 +117,7 @@ module completions {
 
   # Push changes
   export extern "git push" [
-    remote?: string@"nu-complete git remotes",      # the name of the remote
+    remote?: string@"nu-complete git remotes"       # the name of the remote
     ...refs: string@"nu-complete git branches"      # the branch / refspec
     --all                                           # push all refs
     --atomic                                        # request atomic transaction on remote side
@@ -147,28 +146,6 @@ module completions {
     --verbose(-v)                                   # be more verbose
     --help                                          # Display the help message for this command
   ]
-
-  # def "nu-complete hx health" [] {
-  #   ^hx --health | lines | skip 9 | split column ' ' | select column1
-  # }
-
-  # def "nu-complete hx grammar" [] {
-  #   ["fetch", "build"]
-  # }
-
-  # export extern "hx" [
-  #   --help(-h)                                      # Prints help information
-  #   -v                                              # Increase logging verbosity
-  #   --version(-V)                                   # Prints version information
-  #   --tutor                                         # Loads the tutorial
-  #   --health: string@"nu-complete hx health"        # Checks for errors in editor setup
-  #   --grammar(-g): string@"nu-complete hx grammar"  # Fetches or builds tree-sitter grammars
-  #   --vsplit                                        # Splits all given files vertically into different windows
-  #   --hsplit                                        # Splits all given files horizontally into different windows
-  #   --config(-g)                                    # Specifies a file to use for configuration
-  #   --log                                           # Specifies a file to write log data into
-  #   ...files: string
-  # ]
 }
 
 # Get just the extern definitions without the custom completion commands
@@ -200,7 +177,7 @@ let dark_theme = {
     hints: dark_gray
 
     # shapes are used to change the cli syntax highlighting
-    shape_garbage: { fg: "#FFFFFF" bg: "#FF0000" attr: b}
+    shape_garbage: { fg: "#FFFFFF" bg: "#FF0000" attr: b }
     shape_binary: purple_bold
     shape_bool: light_cyan
     shape_int: purple_bold
@@ -290,55 +267,84 @@ let light_theme = {
 
 # The default config record. This is where much of your global configuration is setup.
 let-env config = {
+  # theme
+  color_config: $dark_theme
+  # TODO
+  use_grid_icons: true
+  # always, never, number_of_rows, auto
+  footer_mode: "25"
+  # default float precision
+  float_precision: 2
+  # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
+  # buffer_editor: "emacs"
+  use_ansi_coloring: true
+  # emacs, vi
+  edit_mode: emacs
+  # enables terminal markers and a workaround to arrow keys stop working issue
+  shell_integration: true
+  # true or false to enable or disable the banner
+  show_banner: false
+  # true or false to enable or disable right prompt to be rendered on last line of the prompt.
+  render_right_prompt_on_last_line: false
+  filesize: {
+    # true => (KB, MB, GB), false => (KiB, MiB, GiB)
+    metric: false
+    # b, kb, kib, mb, mib, gb, gib, tb, tib, pb, pib, eb, eib, zb, zib, auto
+    format: "auto"
+  }
   ls: {
-    use_ls_colors: true # use the LS_COLORS environment variable to colorize output
-    clickable_links: true # enable or disable clickable links. Your terminal has to support links.
+    # use $LS_COLORS
+    use_ls_colors: true
+    clickable_links: true
   }
   rm: {
-    always_trash: false # always act as if -t was given. Can be overridden with -p
+    # move to trash instead of deleting permanently
+    always_trash: true
   }
   cd: {
-    abbreviations: true # allows `cd s/o/f` to expand to `cd some/other/folder`
+    # allow expansion of shortened paths
+    abbreviations: true
   }
   table: {
-    mode: rounded # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
-    index_mode: always # "always" show indexes, "never" show indexes, "auto" = show indexes when a table has "index" column
+    # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none,
+    # other
+    mode: light
+    # always, never, auto
+    index_mode: always
+    # a strategy of managing table view in case of limited space.
     trim: {
-      methodology: wrapping # wrapping or truncating
-      wrapping_try_keep_words: true # A strategy used by the 'wrapping' methodology
-      truncating_suffix: "..." # A suffix used by the 'truncating' methodology
+      # wrapping, truncating
+      methodology: wrapping
+      # a strategy which will be used by 'wrapping' methodology
+      wrapping_try_keep_words: true
+      # a suffix which will be used with 'truncating' methodology
+      # truncating_suffix: "..."
     }
   }
   history: {
-    max_size: 10000 # Session has to be reloaded for this to take effect
-    sync_on_enter: true # Enable to share history between multiple sessions, else you have to close the session to write history to file
-    file_format: "plaintext" # "sqlite" or "plaintext"
+    max_size: 10000
+    # allows sharing between sessions
+    sync_on_enter: true
+    # sqlite, plaintext
+    file_format: "plaintext"
   }
   completions: {
-    case_sensitive: false # set to true to enable case-sensitive completions
-    quick: true  # set this to false to prevent auto-selecting completions when only one remains
-    partial: true  # set this to false to prevent partial filling of the prompt
-    algorithm: "prefix"  # prefix or fuzzy
+    case_sensitive: false
+    # set this to false to prevent auto-selecting completions when only one remains
+    quick: true 
+    # set this to false to prevent partial filling of the prompt
+    partial: true 
+    # prefix, fuzzy
+    algorithm: "prefix"
     external: {
-      enable: true # set to false to prevent nushell looking into $env.PATH to find more suggestions, `false` recommended for WSL users as this look up my be very slow
-      max_results: 100 # setting it lower can improve completion performance at the cost of omitting some options
-      completer: null # check 'carapace_completer' above as an example
+      # set to false to prevent nushell looking into $env.PATH to find more suggestions
+      enable: true
+      # setting it lower can improve completion performance at the cost of omitting some options
+      max_results: 100
+      # see: 'carapace_completer' above to as example
+      completer: null
     }
   }
-  filesize: {
-    metric: true # true => KB, MB, GB (ISO standard), false => KiB, MiB, GiB (Windows standard)
-    format: "auto" # b, kb, kib, mb, mib, gb, gib, tb, tib, pb, pib, eb, eib, zb, zib, auto
-  }
-  color_config: $dark_theme   # if you want a light theme, replace `$dark_theme` to `$light_theme`
-  use_grid_icons: true
-  footer_mode: "25" # always, never, number_of_rows, auto
-  float_precision: 2
-  # buffer_editor: "emacs" # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
-  use_ansi_coloring: true
-  edit_mode: emacs # emacs, vi
-  shell_integration: true # enables terminal markers and a workaround to arrow keys stop working issue
-  show_banner: true # true or false to enable or disable the banner
-  render_right_prompt_on_last_line: false # true or false to enable or disable right prompt to be rendered on last line of the prompt.
   hooks: {
     pre_prompt: [{
       $nothing  # replace with source code to run before the prompt is shown
@@ -347,139 +353,134 @@ let-env config = {
       $nothing  # replace with source code to run before the repl input is run
     }]
     env_change: {
-      PWD: [
-        {
-          condition: {|before, after| env_change "/home/erik/Source" $before $after true}
-          code: "overlay use dev"
-        }
-        {
-          condition: {|before, after| env_change "/home/erik/Source" $before $after false}
-          code: "overlay hide dev --keep-env [ PWD ]"
-        }
-      ]
+      PWD: [{ |before, after|
+        $nothing  # replace with source code to run if the PWD environment is different since the last repl input
+      }]
     }
-    display_output: {
-      if (term size).columns >= 100 { table -e } else { table }
-    }
+    # when invoked with non table outputs this causes less to be called with no argc == 0,
+    # missing the required argv[0] == "less"
+    # display_output: { table | less -FRSX }
   }
   menus: [
-      # Configuration for default nushell menus
-      # Note the lack of souce parameter
-      {
-        name: completion_menu
-        only_buffer_difference: false
-        marker: "| "
-        type: {
-            layout: columnar
-            columns: 4
-            col_width: 20   # Optional value. If missing all the screen width is used to calculate column width
-            col_padding: 2
-        }
-        style: {
-            text: green
-            selected_text: green_reverse
-            description_text: yellow
-        }
+    # Configuration for default nushell menus
+    # Note the lack of souce parameter
+    {
+      name: completion_menu
+      only_buffer_difference: false
+      marker: "| "
+      type: {
+        layout: columnar
+        columns: 4
+        # Optional value. If missing all the screen width is used to calculate column width
+        col_width: 20
+        col_padding: 2
       }
-      {
-        name: history_menu
-        only_buffer_difference: true
-        marker: "? "
-        type: {
-            layout: list
-            page_size: 10
-        }
-        style: {
-            text: green
-            selected_text: green_reverse
-            description_text: yellow
-        }
+      style: {
+        text: green
+        selected_text: green_reverse
+        description_text: yellow
       }
-      {
-        name: help_menu
-        only_buffer_difference: true
-        marker: "? "
-        type: {
-            layout: description
-            columns: 4
-            col_width: 20   # Optional value. If missing all the screen width is used to calculate column width
-            col_padding: 2
-            selection_rows: 4
-            description_rows: 10
-        }
-        style: {
-            text: green
-            selected_text: green_reverse
-            description_text: yellow
-        }
+    }
+    {
+      name: history_menu
+      only_buffer_difference: true
+      marker: "? "
+      type: {
+        layout: list
+        page_size: 10
       }
-      # Example of extra menus created using a nushell source
-      # Use the source field to create a list of records that populates
-      # the menu
-      {
-        name: commands_menu
-        only_buffer_difference: false
-        marker: "# "
-        type: {
-            layout: columnar
-            columns: 4
-            col_width: 20
-            col_padding: 2
-        }
-        style: {
-            text: green
-            selected_text: green_reverse
-            description_text: yellow
-        }
-        source: { |buffer, position|
-            $nu.scope.commands
-            | where command =~ $buffer
-            | each { |it| {value: $it.command description: $it.usage} }
-        }
+      style: {
+        text: green
+        selected_text: green_reverse
+        description_text: yellow
       }
-      {
-        name: vars_menu
-        only_buffer_difference: true
-        marker: "# "
-        type: {
-            layout: list
-            page_size: 10
-        }
-        style: {
-            text: green
-            selected_text: green_reverse
-            description_text: yellow
-        }
-        source: { |buffer, position|
-            $nu.scope.vars
-            | where name =~ $buffer
-            | sort-by name
-            | each { |it| {value: $it.name description: $it.type} }
-        }
+    }
+    {
+      name: help_menu
+      only_buffer_difference: true
+      marker: "? "
+      type: {
+        layout: description
+        columns: 4
+        # Optional value. If missing all the screen width is used to calculate column width
+        col_width: 20
+        col_padding: 2
+        selection_rows: 4
+        description_rows: 10
       }
-      {
-        name: commands_with_description
-        only_buffer_difference: true
-        marker: "# "
-        type: {
-            layout: description
-            columns: 4
-            col_width: 20
-            col_padding: 2
-            selection_rows: 4
-            description_rows: 10
-        }
-        style: {
-            text: green
-            selected_text: green_reverse
-            description_text: yellow
-        }
-        source: { |buffer, position|
-            $nu.scope.commands
-            | where command =~ $buffer
-            | each { |it| {value: $it.command description: $it.usage} }
-        }
+      style: {
+        text: green
+        selected_text: green_reverse
+        description_text: yellow
       }
+    }
+    # Example of extra menus created using a nushell source
+    # Use the source field to create a list of records that populates
+    # the menu
+    {
+      name: commands_menu
+      only_buffer_difference: false
+      marker: "# "
+      type: {
+        layout: columnar
+        columns: 4
+        col_width: 20
+        col_padding: 2
+      }
+      style: {
+        text: green
+        selected_text: green_reverse
+        description_text: yellow
+      }
+      source: { |buffer, position|
+        $nu.scope.commands
+        | where command =~ $buffer
+        | each { |it| {value: $it.command description: $it.usage} }
+      }
+    }
+    {
+      name: vars_menu
+      only_buffer_difference: true
+      marker: "# "
+      type: {
+        layout: list
+        page_size: 10
+      }
+      style: {
+        text: green
+        selected_text: green_reverse
+        description_text: yellow
+      }
+      source: { |buffer, position|
+        $nu.scope.vars
+        | where name =~ $buffer
+        | sort-by name
+        | each { |it| {value: $it.name description: $it.type} }
+      }
+    }
+    {
+      name: commands_with_description
+      only_buffer_difference: true
+      marker: "# "
+      type: {
+        layout: description
+        columns: 4
+        col_width: 20
+        col_padding: 2
+        selection_rows: 4
+        description_rows: 10
+      }
+      style: {
+        text: green
+        selected_text: green_reverse
+        description_text: yellow
+      }
+      source: { |buffer, position|
+        $nu.scope.commands
+        | where command =~ $buffer
+        | each { |it| { value: $it.command description: $it.usage } }
+      }
+    }
   ]
   keybindings: [
     {
@@ -489,7 +490,7 @@ let-env config = {
       mode: emacs # Options: emacs vi_normal vi_insert
       event: {
         until: [
-          { send: menu name: completion_menu }
+          { send: menu, name: completion_menu }
           { send: menunext }
         ]
       }
@@ -506,7 +507,7 @@ let-env config = {
       modifier: control
       keycode: char_r
       mode: emacs
-      event: { send: menu name: history_menu }
+      event: { send: menu, name: history_menu }
     }
     {
       name: next_page
@@ -534,7 +535,7 @@ let-env config = {
       mode: emacs
       event: {
         until: [
-          {edit: pastecutbufferafter}
+          { edit: pastecutbufferafter }
         ]
       }
     }
@@ -545,7 +546,7 @@ let-env config = {
       mode: [emacs, vi_normal, vi_insert]
       event: {
         until: [
-          {edit: cutfromlinestart}
+          { edit: cutfromlinestart }
         ]
       }
     }
@@ -556,7 +557,7 @@ let-env config = {
       mode: [emacs, vi_normal, vi_insert]
       event: {
         until: [
-          {edit: cuttolineend}
+          { edit: cuttolineend }
         ]
       }
     }
@@ -566,22 +567,24 @@ let-env config = {
       modifier: control
       keycode: char_t
       mode: [emacs, vi_normal, vi_insert]
-      event: { send: menu name: commands_menu }
+      event: { send: menu, name: commands_menu }
     }
     {
       name: vars_menu
       modifier: alt
       keycode: char_o
       mode: [emacs, vi_normal, vi_insert]
-      event: { send: menu name: vars_menu }
+      event: { send: menu, name: vars_menu }
     }
     {
       name: commands_with_description
       modifier: control
       keycode: char_s
       mode: [emacs, vi_normal, vi_insert]
-      event: { send: menu name: commands_with_description }
+      event: { send: menu, name: commands_with_description }
     }
   ]
 }
 
+# load starship prompt
+source ~/.cache/starship/init.nu

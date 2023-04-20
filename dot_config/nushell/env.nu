@@ -1,27 +1,23 @@
 # Nushell Environment Config File
 
 def create_left_prompt [] {
-    let path_segment = if (is-admin) {
-        $"(ansi red_bold)($env.PWD)"
-    } else {
-        $"(ansi green_bold)($env.PWD)"
-    }
+  let pwd = ($env.PWD | str replace $env.HOME "~")
 
-    let in_dev = if (($env | get --ignore-errors DEV) != $nothing) {
-        $" (ansi red_bold)[dev]"
-    } else {
-        ""
-    }
+  let path_segment = if (is-admin) {
+    $"(ansi red_bold)($pwd)"
+  } else {
+    $"(ansi green_bold)($pwd)"
+  }
 
-    $"($path_segment)($in_dev)"
+  $path_segment
 }
 
 def create_right_prompt [] {
-    let time_segment = ([
-        (date now | date format '%m/%d/%Y %r' | str substring ..-1)
-    ] | str join)
+  let time_segment = ([
+    (date now | date format '%m/%d/%Y %r')
+  ] | str join)
 
-    $time_segment
+  $time_segment
 }
 
 # Use nushell functions to define your right and left prompt
@@ -54,16 +50,19 @@ let-env ENV_CONVERSIONS = {
 #
 # By default, <nushell-config-dir>/scripts is added
 let-env NU_LIB_DIRS = [
-    ($nu.config-path | path dirname | path join 'scripts')
+  ($nu.config-path | path dirname | path join 'scripts')
 ]
 
 # Directories to search for plugin binaries when calling register
 #
 # By default, <nushell-config-dir>/plugins is added
 let-env NU_PLUGIN_DIRS = [
-    ($nu.config-path | path dirname | path join 'plugins')
+  ($nu.config-path | path dirname | path join 'plugins')
 ]
 
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
 # let-env PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
 
+# prepare starship prompt
+mkdir ~/.cache/starship
+starship init nu | str replace --string "size -c" "size" | save -f ~/.cache/starship/init.nu
