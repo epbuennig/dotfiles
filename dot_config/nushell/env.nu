@@ -1,6 +1,6 @@
 # Nushell Environment Config File
 
-def create_left_prompt [] {
+let-env PROMPT_COMMAND = {||
   let pwd = ($env.PWD | str replace $env.HOME "~")
 
   let path_segment = if (is-admin) {
@@ -12,7 +12,7 @@ def create_left_prompt [] {
   $path_segment
 }
 
-def create_right_prompt [] {
+let-env PROMPT_COMMAND_RIGHT = {||
   let time_segment = ([
     (date now | date format '%m/%d/%Y %r')
   ] | str join)
@@ -20,16 +20,12 @@ def create_right_prompt [] {
   $time_segment
 }
 
-# Use nushell functions to define your right and left prompt
-let-env PROMPT_COMMAND = { create_left_prompt }
-let-env PROMPT_COMMAND_RIGHT = { create_right_prompt }
-
 # The prompt indicators are environmental variables that represent
 # the state of the prompt
-let-env PROMPT_INDICATOR = { "〉" }
-let-env PROMPT_INDICATOR_VI_INSERT = { ": " }
-let-env PROMPT_INDICATOR_VI_NORMAL = { "〉" }
-let-env PROMPT_MULTILINE_INDICATOR = { "::: " }
+let-env PROMPT_INDICATOR = {|| "〉" }
+let-env PROMPT_INDICATOR_VI_INSERT = {|| ": " }
+let-env PROMPT_INDICATOR_VI_NORMAL = {|| "〉" }
+let-env PROMPT_MULTILINE_INDICATOR = {|| "::: " }
 
 # Specifies how environment variables are:
 # - converted from a string to a value on Nushell startup (from_string)
