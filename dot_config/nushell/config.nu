@@ -1,28 +1,34 @@
 # Nushell Config File
 
-module dev {
-  export-env {
-    let-env DEV = true
-  }
+if (which gpgconf) != $nothing {
+  ^gpgconf --launch gpg-agent
 }
 
-def env_change [
-  env_dir: string
-  before: string
-  after: string
-  into: bool
-] {
-  let before_was = (($before | describe) == "string" and ($before | str starts-with $env_dir))
-  let after_is = (($after | describe) == "string" and ($after | str starts-with $env_dir))
+module aliases {
+  export alias gd = ^git diff
+  export alias gs = ^git status
+  export alias gl = ^git log --all --graph
 
-  if $into and (not $before_was) and $after_is {
-    true
-  } else if (not $into) and $before_was and (not $after_is) {
-    true
-  } else {
-    false
-  }
+  export alias gf = ^git fetch
+  export alias gr = ^git rebase
+  export alias gm = ^git merge
+  export alias gp = ^git push
+  export alias gcm = ^git commit -m
+
+  export alias gam = ^git commit -v --amend --no-edit
+  export alias gst = ^git stash push --staged
+
+  export alias gn = ^shutdown now
+  export alias brb = ^reboot
+  export alias vpn = ^protonvpn-cli
+  export alias sed = ^sed -r
+  export alias dots = ^chezmoi
+  export alias ip = ^ip -c -p
+  export alias exa = ^exa --icons --git
+  export alias dpss = ^docker ps "table {{.ID}}\t{{.CreatedAt}}\t{{.Status}}\t{{.Names}}"
 }
+
+use aliases *
 
 module completions {
   # Custom completions for external commands (those outside of Nushell)
@@ -346,17 +352,13 @@ let-env config = {
     }
   }
   hooks: {
-    pre_prompt: [{||
+    pre_prompt: [{ ||
       $nothing  # replace with source code to run before the prompt is shown
     }]
-    pre_execution: [{||
+    pre_execution: [{ ||
       $nothing  # replace with source code to run before the repl input is run
     }]
-    env_change: {
-      PWD: [{ |before, after|
-        $nothing  # replace with source code to run if the PWD environment is different since the last repl input
-      }]
-    }
+    env_change: {}
     # when invoked with non table outputs this causes less to be called with no argc == 0,
     # missing the required argv[0] == "less"
     # display_output: { table | less -FRSX }
@@ -434,8 +436,8 @@ let-env config = {
       }
       source: { |buffer, position|
         $nu.scope.commands
-        | where command =~ $buffer
-        | each { |it| {value: $it.command description: $it.usage} }
+        | where name =~ $buffer
+        | each { |it| {value: $it.name description: $it.usage} }
       }
     }
     {
@@ -477,8 +479,8 @@ let-env config = {
       }
       source: { |buffer, position|
         $nu.scope.commands
-        | where command =~ $buffer
-        | each { |it| { value: $it.command description: $it.usage } }
+        | where name =~ $buffer
+        | each { |it| { value: $it.name description: $it.usage } }
       }
     }
   ]
@@ -560,6 +562,13 @@ let-env config = {
           { edit: cuttolineend }
         ]
       }
+    }
+    {
+      name: help_menu
+      modifier: control
+      keycode: char_h
+      mode: [emacs, vi_normal, vi_insert]
+      event: { send: menu, name: help_menu }
     }
     # Keybindings used to trigger the user defined menus
     {
