@@ -10,11 +10,13 @@ module aliases {
   export alias gl = ^git log --all --graph
 
   export alias gf = ^git fetch
+  export alias gp = ^git push
+
   export alias gr = ^git rebase
   export alias gm = ^git merge
-  export alias gp = ^git push
-  export alias gcm = ^git commit -m
 
+  export alias ga = ^git add
+  export alias gcm = ^git commit -m
   export alias gam = ^git commit -v --amend --no-edit
   export alias gst = ^git stash push --staged
 
