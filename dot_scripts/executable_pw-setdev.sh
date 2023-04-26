@@ -22,10 +22,10 @@ case "${1}" in
             | .id"))
 
         # there are only 2 on this pc
-        if [[ $_sink_id == $_sink_ids[1]  ]]; then
-            wpctl set-default $_sink_ids[2]
-        else
+        if [[ $_sink_id == $_sink_ids[0] ]]; then
             wpctl set-default $_sink_ids[1]
+        else
+            wpctl set-default $_sink_ids[0]
         fi
     ;;
     'speakers' | 's')
