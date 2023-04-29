@@ -98,6 +98,7 @@ if (which gpgconf) != $nothing {
 
 
 let-env MEDIA = ($env.HOME | path join "Data/media")
+let-env STARSHIP_CONFIG = ($env.HOME | path join ".config/starship/config.toml")
 
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
 # let-env PATH = ($env.PATH | split row (char esep) | prepend '/some/path')

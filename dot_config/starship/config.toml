@@ -1,0 +1,116 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """\
+$os\
+$username\
+$sudo\
+$hostname\
+$localip\
+$container\
+$directory\
+${custom.git}\
+$package\
+$rust\
+$c\
+$python\
+$zig\
+$conda\
+$env_var\
+$line_break\
+$character\
+"""
+
+
+# $directory\
+# $git_branch\
+# $git_commit\
+# $git_state\
+# $git_metrics\
+# $git_status\
+# $package\
+
+right_format = """\
+$shell\
+$jobs\
+$battery\
+$cmd_duration\
+$status\
+$time\
+"""
+
+[username]
+format = '[$user]($style) '
+show_always = true
+
+[sudo]
+format = '[$symbol]($style)'
+style = 'bold red'
+symbol = ' '
+disabled = false
+
+[hostname]
+ssh_symbol = ' '
+
+[directory]
+format = 'in [$path]($style) '
+truncate_to_repo = false
+
+[directory.substitutions]
+# '~/Source/github.com/' = ''
+# '~/Source/github.com-old/' = ''
+# '~/Source/git.ai.fh-erfurt.de/' = ''
+# '~/Source/gitlab.com/' = ''
+
+[custom.git]
+style = 'white'
+
+command = '~/.scripts/epb-prompt-git'
+when = true
+require_repo = true
+
+[git_branch]
+format = '[$symbol $remote_name]($style)[:](bold)[$branch]($style) '
+symbol = ''
+
+always_show_remote = true
+# ignore_branches = ['master', 'main']
+
+[git_state]
+rebase = 'rebasing'
+merge = 'merging'
+revert = 'reverting'
+cherry_pick = 'cherry picking'
+bisect = 'bisecting'
+
+
+[git_status]
+format = """\
+(\\[$ahead_behind\\] )\
+(:: (\\[[$all_status]($style)\\]) )\
+"""
+
+up_to_date = '[](bold green)'
+ahead = '[⇡](red)$count'
+behind = '[⇣](red)$count'
+diverged = '[$ahead_count⇡ $behind_count⇣](red)'
+conflicted = '[=$count](bold red)'
+untracked = '[?$count](blue)'
+modified = '[!$count](red)'
+renamed = '[~$count](cyan)'
+staged = '[+$count](green)'
+deleted = '[-$count](red)'
+stashed = '[$count\$](yellow)'
+
+[fill]
+symbol = '-'
+style = 'bold white'
+
+[shell]
+format = 'using [$indicator]($style) '
+disabled = false
+
+[status]
+disabled = false
+
+[time]
+disabled = false
