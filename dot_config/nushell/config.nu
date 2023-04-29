@@ -1,9 +1,5 @@
 # Nushell Config File
 
-if (which gpgconf) != $nothing {
-  ^gpgconf --launch gpg-agent
-}
-
 module aliases {
   export alias gd = ^git diff
   export alias gs = ^git status
@@ -595,6 +591,11 @@ let-env config = {
       event: { send: menu, name: commands_with_description }
     }
   ]
+}
+
+# configure gpg
+if (which gpgconf) != $nothing {
+  ^gpgconf --launch gpg-agent
 }
 
 # load starship prompt
