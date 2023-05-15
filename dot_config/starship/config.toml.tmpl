@@ -8,7 +8,16 @@ $hostname\
 $localip\
 $container\
 $directory\
+{{ if eq .chezmoi.hostname "hsh" -}}
 ${custom.git}\
+{{- else -}}
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+{{- end }}
 $package\
 $rust\
 $c\
@@ -19,15 +28,6 @@ $env_var\
 $line_break\
 $character\
 """
-
-
-# $directory\
-# $git_branch\
-# $git_commit\
-# $git_state\
-# $git_metrics\
-# $git_status\
-# $package\
 
 right_format = """\
 $shell\
