@@ -17,10 +17,13 @@ roots = []
 comment-token = "//"
 indent = { tab-width = 2, unit = "  " }
 language-server.command = "typst-lsp"
+# dynamic capability registration is not yet supported, log:
+# Ignoring a client/registerCapability request because dynamic capability registration is not enabled. Please report this upstream to the language server
+# config = { settings = { exportPdf = 'onType' } }
 
 [[grammar]]
 name = "typst"
-source = { git = "https://github.com/frozolotl/tree-sitter-typst/", rev = "191ba54d6a9a50e3e8c047afd598b16298cb8135" }
+source = { git = "https://github.com/frozolotl/tree-sitter-typst/", rev = "af40989c1a2e724a9625cae412c17a60969280ca" }
 
 
 [[language]]
