@@ -74,7 +74,7 @@ let bins = [
 
   [["nvim", "vim"], "EDITOR",    []]
   [["hx", "helix"], "EDITOR",    [["HELIX_RUNTIME", $"($env.HOME)/.local/share/helix/runtime"]]]
-  [["firefox"],     "BRWOSER",   []]
+  [["firefox"],     "BROWSER",   []]
   [["bat"],         "MANPAGER",  []]
   [["delta"],       "GIT_PAGER", []]
 ]
