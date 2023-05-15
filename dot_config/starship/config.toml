@@ -49,7 +49,8 @@ symbol = ' '
 disabled = false
 
 [hostname]
-ssh_symbol = ' '
+format = '[$ssh_symbol]($style) on [$hostname]($style) '
+ssh_symbol = ''
 
 [directory]
 format = 'in [$path]($style) '
