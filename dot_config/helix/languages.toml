@@ -16,15 +16,22 @@ file-types = ["typ"]
 roots = []
 comment-token = "//"
 indent = { tab-width = 2, unit = "  " }
-language-server.command = "typst-lsp"
+# language-servers.command = "typst-lsp"
 # dynamic capability registration is not yet supported, log:
 # Ignoring a client/registerCapability request because dynamic capability registration is not enabled. Please report this upstream to the language server
 # config = { settings = { exportPdf = 'onType' } }
 
+[language.auto-pairs]
+'(' = ')'
+'{' = '}'
+'[' = ']'
+'"' = '"'
+'`' = '`'
+'$' = '$'
+
 [[grammar]]
 name = "typst"
-source = { git = "https://github.com/frozolotl/tree-sitter-typst/", rev = "af40989c1a2e724a9625cae412c17a60969280ca" }
-
+source = { git = "https://github.com/frozolotl/tree-sitter-typst/", rev = "68f60ff8941474f22fe7dc725af846f5c20a5b06" }
 
 [[language]]
 name = "just"
