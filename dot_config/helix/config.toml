@@ -35,7 +35,7 @@ newline = "¬"
 [editor.lsp]
 auto-signature-help = false
 display-messages = true
-display-inlay-hints = true
+display-inlay-hints = false
 
 [editor.soft-wrap]
 enable = true
@@ -51,6 +51,9 @@ r = ":reflow 100"
 
 # list just recipes
 j = ":sh just --list --unsorted"
+
+# toggle inlay hints
+i = ":toggle lsp.display-inlay-hints"
 
 # just sub menu
 [keys.normal.space.space.J]
