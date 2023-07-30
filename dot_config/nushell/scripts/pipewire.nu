@@ -2,7 +2,7 @@
 # pipewire controlling functions and environment variables
 
 export-env {
-  let-env PIPEWIRE = {
+  $env.PIPEWIRE = {
     # matching values given for the path `info.props."node.description"` from pw-dump
     node-matchers: {
       speakers: "Built-in"
