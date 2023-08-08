@@ -100,6 +100,7 @@ if (which gpgconf) != $nothing {
 $env.MEDIA = ($env.HOME | path join "Data/media")
 $env.SXHKD_SHELL = (which zsh | get path.0)
 $env.STARSHIP_CONFIG = ($env.HOME | path join ".config/starship/config.toml")
+$env.RIPGREP_CONFIG_PATH = ($env.HOME | path join ".config/ripgrep/config")
 
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
 # $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
