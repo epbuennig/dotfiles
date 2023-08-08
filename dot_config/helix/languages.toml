@@ -33,6 +33,7 @@ indent = { tab-width = 2, unit = "  " }
 name = "typst"
 source = { git = "https://github.com/frozolotl/tree-sitter-typst/", rev = "68f60ff8941474f22fe7dc725af846f5c20a5b06" }
 
+
 [[language]]
 name = "just"
 scope = "source.just"
@@ -44,3 +45,13 @@ comment-token = "#"
 [[grammar]]
 name = "just"
 source = { git = "https://github.com/IndianBoy42/tree-sitter-just", rev = "4e5f5f3ff37b12a1bbf664eb3966b3019e924594" }
+
+
+[[language]]
+name = "t4gl"
+scope = "source.t4gl"
+injection-regex = "^t4gl$"
+file-types = ["t4gl"]
+roots = ["global.t4gl"]
+comment-token = "//"
+indent = { tab-width = 4, unit = "    " }
