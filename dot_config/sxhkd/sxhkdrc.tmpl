@@ -33,14 +33,17 @@ super + q
 # ================
 
 # volume
-XF86Audio{Mute,RaiseVolume,LowerVolume}
-    ~/.scripts/pw-setvol.sh {mute toggle,incr 0.05,decr 0.05}
+XF86AudioMute
+    nu --env-config ($nu.env-path) -c 'use pipewire.nu; pipewire volume mute'
+
+XF86Audio{RaiseVolume,LowerVolume}
+    nu --env-config ($nu.env-path) -c 'use pipewire.nu; pipewire volume set --relative --clamp {+,-}5'
 
 super + XF86Audio{Mute,RaiseVolume,LowerVolume}
     ~/.scripts/spotify.sh {PlayPause,Next,Previous}
 
 super + shift + XF86AudioMute
-    ~/.scripts/pw-setdev.sh toggle && polybar-msg action '#audio-devices.hook.0'
+    nu --env-config ($nu.env-path) -c 'use pipewire.nu; pipewire device toggle; polybar-msg action "#audio-devices.hook.0"'
 
 
 # ================
