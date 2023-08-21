@@ -31,7 +31,7 @@ indent = { tab-width = 2, unit = "  " }
 
 [[grammar]]
 name = "typst"
-source = { git = "https://github.com/frozolotl/tree-sitter-typst/", rev = "4004fd9aa30d08405d6c54304908ab7f095780db" }
+source = { git = "https://github.com/frozolotl/tree-sitter-typst/", rev = "04462e79b46e0b502597f97cb7aa8e34653ce237" }
 
 
 [[language]]
