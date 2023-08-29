@@ -108,6 +108,6 @@ $env.RIPGREP_CONFIG_PATH = ($env.HOME | path join ".config/ripgrep/config")
 # prepare starship prompt
 mkdir ~/.cache/starship
 (starship init nu
-  | str replace --string "size -c" "size"
-  | str replace --string --all "let-env " "$env."
+  | str replace "size -c" "size"
+  | str replace --all "let-env " "$env."
   | save -f ~/.cache/starship/init.nu)
