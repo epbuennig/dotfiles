@@ -153,7 +153,7 @@ module completions {
 }
 
 # Get just the extern definitions without the custom completion commands
-use completions *
+# use completions *
 
 # for more information on themes see
 # https://www.nushell.sh/book/coloring_and_theming.html
@@ -264,9 +264,9 @@ let light_theme = {
 }
 
 # External completer example
-# let carapace_completer = {|spans| 
-#     carapace $spans.0 nushell $spans | from json
-# }
+let carapace_completer = {|spans|
+    carapace $spans.0 nushell $spans | from json
+}
 
 
 # The default config record. This is where much of your global configuration is setup.
@@ -346,7 +346,7 @@ $env.config = {
       # setting it lower can improve completion performance at the cost of omitting some options
       max_results: 100
       # see: 'carapace_completer' above to as example
-      completer: null
+      completer: $carapace_completer
     }
   }
   hooks: {
