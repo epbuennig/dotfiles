@@ -14,7 +14,7 @@ $env.PROMPT_COMMAND = { ||
 
 $env.PROMPT_COMMAND_RIGHT = { ||
   let time_segment = ([
-    (date now | date format '%m/%d/%Y %r')
+    (date now | format date '%m/%d/%Y %r')
   ] | str join)
 
   $time_segment
