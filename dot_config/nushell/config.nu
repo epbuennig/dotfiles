@@ -1,5 +1,9 @@
 # Nushell Config File
 
+def exists [ $name: string ] {
+  (which $name).type?.0 == external
+}
+
 module aliases {
   export alias gd = ^git diff
   export alias gs = ^git status
@@ -263,12 +267,6 @@ let light_theme = {
     shape_matching_brackets: { attr: u }
 }
 
-# External completer example
-let carapace_completer = {|spans|
-    carapace $spans.0 nushell $spans | from json
-}
-
-
 # The default config record. This is where much of your global configuration is setup.
 $env.config = {
   # theme
@@ -340,13 +338,17 @@ $env.config = {
     partial: true 
     # prefix, fuzzy
     algorithm: "prefix"
+    # see above
     external: {
       # set to false to prevent nushell looking into $env.PATH to find more suggestions
       enable: true
       # setting it lower can improve completion performance at the cost of omitting some options
       max_results: 100
-      # see: 'carapace_completer' above to as example
-      completer: $carapace_completer
+      completer: (if (exists carapace) {
+        {|spans| ^carapace $spans.0 nushell $spans | from json }
+      } else {
+        null
+      })
     }
   }
   hooks: {
@@ -594,7 +596,7 @@ $env.config = {
 }
 
 # configure gpg
-if (which gpgconf) != $nothing {
+if (exists gpgconf) {
   ^gpgconf --launch gpg-agent
 }
 
