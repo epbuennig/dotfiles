@@ -473,5 +473,15 @@ if (exists gpgconf) {
   ^gpgconf --launch gpg-agent
 }
 
+# NOTE: the startup time is significantly slowed down by this, maybe this shsould just be a service
+# if (exists autocutsel) {
+#   let vars = (ps | where name == autocutsel)
+#   match ($vars | is-empty) {
+#     0 => { autocutsel -selection CLIPBOARD -fork }
+#     1 => {}
+#     _ => { $vars | skip 1 | each { |it| kill $it } }
+#   }
+# }
+
 # load starship prompt
 source ~/.cache/starship/init.nu
