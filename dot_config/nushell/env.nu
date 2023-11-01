@@ -92,7 +92,7 @@ for var in $bins {
   }
 }
 
-if (which gpgconf) != $nothing {
+if (which gpgconf) != null {
   $env.GPG_TTY = (^tty)
 }
 

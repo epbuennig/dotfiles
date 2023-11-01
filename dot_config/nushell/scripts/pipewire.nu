@@ -91,7 +91,7 @@ export def "volume get" [
   ((^wpctl get-volume $device
       | parse -r '.*: (?P<val>\d+\.\d\d)'
       | get val.0
-      | into decimal) * 100
+      | into float) * 100
     | into int)
 }
 

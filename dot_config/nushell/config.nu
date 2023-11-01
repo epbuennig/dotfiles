@@ -178,7 +178,7 @@ $env.config = {
   }
   cd: {
     # allow expansion of shortened paths
-    abbreviations: true
+    # abbreviations: true
   }
   table: {
     # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none,
@@ -226,10 +226,10 @@ $env.config = {
   }
   hooks: {
     pre_prompt: [{ ||
-      $nothing  # replace with source code to run before the prompt is shown
+      null # replace with source code to run before the prompt is shown
     }]
     pre_execution: [{ ||
-      $nothing  # replace with source code to run before the repl input is run
+      null # replace with source code to run before the repl input is run
     }]
     env_change: {}
     # when invoked with non table outputs this causes less to be called with no argc == 0,
