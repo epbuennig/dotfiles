@@ -176,10 +176,10 @@ $env.config = {
     # move to trash instead of deleting permanently
     always_trash: true
   }
-  cd: {
-    # allow expansion of shortened paths
-    # abbreviations: true
-  }
+  # cd: {
+  #   # allow expansion of shortened paths
+  #   abbreviations: true
+  # }
   table: {
     # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none,
     # other
