@@ -61,6 +61,7 @@ $env.ENV_CONVERSIONS = {
 }
 
 let paths = [
+  ".rye/shims"
   ".local/bin"
   ".cargo/bin"
 ]
