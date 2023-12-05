@@ -13,7 +13,7 @@ export-env {
 
 # use given device or try to query for default device
 def device-or-default [] {
-  if $in != $nothing { $in } else { device get | where default == true | get id }
+  if $in != null { $in } else { device get | where default == true | get id }
 }
 
 # TODO: this can probably done using a simpler version using `where ($it | each ... | any)`
@@ -36,13 +36,13 @@ export def "device get" [] {
     | lines
     | get 1
     # the striping and reading of braces prevents problems with nested values
-    | str replace ".*value:'{(.*)}'.*" "{$1}"
+    | str replace --regex ".*value:'{(.*)}'.*" "{$1}"
     # the format is given as a json object/map
     | from json
     | get name)
 
   ($devices
-    | where info.props."node.description"? != $nothing
+    | where info.props."node.description"? != null
     | where info.props."factory.name" == "api.alsa.pcm.sink"
     | matches-one-of {|e| $e.info.props."node.description" } ($env.PIPEWIRE.node-matchers | values)
     | select id info.props."node.description" info.props."node.name"
@@ -61,9 +61,9 @@ export def "device set" [
   --headphones(-H) # set default to headphones
   --speakers(-S)   # set default to speakers
 ] {
-  # unify arguments as given by being false or $nothing
+  # unify arguments as given by being false or null
   let args = ([$headphones, $speakers, $id]
-    | each {|e| (not ($e in [$nothing, false])) | into int }
+    | each {|e| (not ($e in [null, false])) | into int }
     | math sum)
 
   if ($args | length) != 1 {
@@ -85,7 +85,7 @@ export def "device toggle" [] {
 
 # Return a device's volume in percentage as an integer
 export def "volume get" [
-  --device(-d): int # the device id, or the default device if $nothing
+  --device(-d): int # the device id, or the default device if null
 ] {
   let device = ($device | device-or-default)
   ((^wpctl get-volume $device
@@ -98,7 +98,7 @@ export def "volume get" [
 # Set the volume for a device
 export def "volume set" [
   val: int          # the relative or absolute volume to set
-  --device(-d): int # the device id or the default device if $nothing
+  --device(-d): int # the device id or the default device if null
   --relative(-r)    # whether or not $val is relative
   --clamp           # clamp values instead of throwing an error
 ] {
@@ -134,10 +134,10 @@ export def "volume set" [
 
 # Mute the current default device
 export def "volume mute" [
-  val?: bool        # the value to set the mute state to, or toggle if $nothing
-  --device(-d): int # the device id or the default device if $nothing
+  val?: bool        # the value to set the mute state to, or toggle if null
+  --device(-d): int # the device id or the default device if null
 ] {
   let device = ($device | device-or-default)
-  let val = (if $val == $nothing { "toggle" } else { $val | into int })
+  let val = (if $val == null { "toggle" } else { $val | into int })
   ^wpctl set-mute $device $val
 }
