@@ -5,8 +5,9 @@ export-env {
   $env.PIPEWIRE = {
     # matching values given for the path `info.props."node.description"` from pw-dump
     node-matchers: {
-      speakers: "Built-in"
-      headphones: "Sound Blaster"
+      # unsused: "Built-in"
+      headphones: "beyerdynamic"
+      speakers: "Sound Blaster"
     }
   }
 }
