@@ -31,20 +31,7 @@ indent = { tab-width = 2, unit = "  " }
 
 [[grammar]]
 name = "typst"
-source = { git = "https://github.com/frozolotl/tree-sitter-typst/", rev = "04462e79b46e0b502597f97cb7aa8e34653ce237" }
-
-
-[[language]]
-name = "just"
-scope = "source.just"
-injection-regex = "^just?$"
-file-types = ["just", "justfile"]
-roots = []
-comment-token = "#"
-
-[[grammar]]
-name = "just"
-source = { git = "https://github.com/IndianBoy42/tree-sitter-just", rev = "4e5f5f3ff37b12a1bbf664eb3966b3019e924594" }
+source = { git = "https://github.com/uben0/tree-sitter-typst/", rev = "39c597638820a3281108f96aad64607541a7ba69" }
 
 
 [[language]]
