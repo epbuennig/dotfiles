@@ -17,40 +17,17 @@ M1="HDMI-1"
 
 # primary
 bspc monitor ${M0} -d I-0 I-1 I-2 I-3 I-4 I-5 I-6 I-7 I-8 I-9
-{{ if eq .chezmoi.hostname "hsh" -}}
 bspc rule -a 'firefox:*'         monitor=${M0} desktop=I-1 follow=on
-
-bspc rule -a 'vlc:*'             monitor=${M0} desktop=I-2 follow=on
-bspc rule -a 'Zathura:*'         monitor=${M0} desktop=I-2 follow=on state=tiled
-
-bspc rule -a 'Thunderbird:*'     monitor=${M0} desktop=I-3 follow=on
-bspc rule -a 'libreoffice:*'     monitor=${M0} desktop=I-3 follow=on
-bspc rule -a 'Soffice*:*'        monitor=${M0} desktop=I-3 follow=on
-
-bspc rule -a 'Code:*'            monitor=${M0} desktop=I-4 follow=on
-bspc rule -a 'jetbrains-rider:*' monitor=${M0} desktop=I-4 follow=on
-
-bspc rule -a 'Opera:*'           monitor=${M0} desktop=I-5 follow=off
-
-bspc rule -a 'VirtualBoxVM:*'    monitor=${M0} desktop=I-6 follow=on
-{{- else -}}
-bspc rule -a 'firefox:*' monitor=${M0} desktop=I-1 follow=off
-bspc rule -a 'Element:*' monitor=${M0} desktop=I-2 follow=off
-bspc rule -a 'Cinny:*'   monitor=${M0} desktop=I-2 follow=off state=tiled
-bspc rule -a 'discord:*' monitor=${M0} desktop=I-3 follow=off
-{{- end }}
 
 # secondary
 if [[ $(xrandr -q | grep "${M1} connected") ]]; then
     bspc monitor ${M1} -d II-0 II-1 II-2 II-3 II-4 II-5 II-6 II-7 II-8 II-9
-{{ if eq .chezmoi.hostname "hsh" -}}
     bspc rule -a 'discord:*' monitor=${M1} desktop=II-0 follow=off
     bspc rule -a 'Element:*' monitor=${M1} desktop=II-2 follow=off
     bspc rule -a 'Cinny:*'   monitor=${M1} desktop=II-2 follow=off state=tiled
     # BUG: spotify is not recognized by bspc
     # see: https://github.com/baskerville/bspwm/issues/291
     bspc rule -a 'spotify:*' monitor=${M1} desktop=II-3 follow=off
-{{- end }}
 fi
 
 # config
