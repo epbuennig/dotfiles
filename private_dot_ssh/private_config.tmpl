@@ -16,6 +16,12 @@ Host github.com-old
     User git
     IdentityFile ~/.ssh/github_old
     IdentitiesOnly yes
+
+Host github.com-new
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/github_new
+    IdentitiesOnly yes
 {{- end }}
 
 Host github.com
@@ -33,8 +39,8 @@ Host fs fs.bj-ig.de
     PubKeyAcceptedAlgorithms +ssh-rsa
 
 {{ if eq .chezmoi.hostname "hsh" -}}
-Host 192.168.2.101
-    HostName 192.168.2.101
+Host 192.168.2.100
+    HostName 192.168.2.100
     User pi
     IdentityFile ~/.ssh/pi
     IdentitiesOnly yes
