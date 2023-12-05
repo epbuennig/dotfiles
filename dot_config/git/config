@@ -2,6 +2,10 @@
     ui = true
 
 
+[init]
+    defaultBranch = "main"
+
+
 [push]
     autoSetupRemote = true
 
@@ -30,6 +34,9 @@
 [url "git@gitlab.com:"]
     insteadOf = gl:
 
+[url "git@gitlab.com:epbuennig/"]
+    insteadOf = gl:/
+
 [url "git@git.ai.fh-erfurt.de:"]
     insteadOf = fh:
 
@@ -41,6 +48,9 @@
 [includeIf "gitdir:~/Source/github.com-old/"]
     path = ~/Source/github.com-old/.gitconfig
 
+[includeIf "gitdir:~/Source/github.com-new/"]
+    path = ~/Source/github.com-new/.gitconfig
+
 [includeIf "gitdir:~/Source/github.com/"]
     path = ~/Source/github.com/.gitconfig
 
@@ -48,3 +58,8 @@
     path = ~/Source/git.ai.fh-erfurt.de/.gitconfig
 
 
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
