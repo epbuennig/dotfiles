@@ -473,7 +473,7 @@ if (exists gpgconf) {
   ^gpgconf --launch gpg-agent
 }
 
-# NOTE: the startup time is significantly slowed down by this, maybe this shsould just be a service
+# NOTE: the startup time is significantly slowed down by this, maybe this should just be a service
 # if (exists autocutsel) {
 #   let vars = (ps | where name == autocutsel)
 #   match ($vars | is-empty) {

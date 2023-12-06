@@ -60,14 +60,18 @@ $env.ENV_CONVERSIONS = {
   }
 }
 
+def in-home [ path ] {
+  $env.HOME | path join $path
+}
+
 let paths = [
-  ".rye/shims"
-  ".local/bin"
-  ".cargo/bin"
+  (in-home ".rye/shims")
+  (in-home ".cargo/bin")
+  (in-home ".local/bin")
 ]
 
-for path in ($paths | where ($it | path exists)) {
-  $env.PATH = ($env.PATH | prepend ($env.HOME | path join $path))
+for path in ($paths | where ($it | path exists) | reverse) {
+  $env.PATH = ($env.PATH | prepend $path)
 }
 
 let bins = [
