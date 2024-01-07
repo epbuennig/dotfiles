@@ -10,24 +10,11 @@ indent = { tab-width = 4, unit = "    " }
 
 [[language]]
 name = "typst"
-scope = "source.typst"
-injection-regex = "^typ(st)?$"
-file-types = ["typ"]
-roots = []
-comment-token = "//"
-indent = { tab-width = 2, unit = "  " }
-# language-servers.command = "typst-lsp"
 # dynamic capability registration is not yet supported, log:
 # Ignoring a client/registerCapability request because dynamic capability registration is not enabled. Please report this upstream to the language server
-# config = { settings = { exportPdf = 'onType' } }
 
-[language.auto-pairs]
-'(' = ')'
-'{' = '}'
-'[' = ']'
-'"' = '"'
-'`' = '`'
-'$' = '$'
+[language-server.typst-lsp.config]
+exportPdf = 'never'
 
 [[grammar]]
 name = "typst"
