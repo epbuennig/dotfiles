@@ -28,6 +28,8 @@ module aliases {
   export alias ip = ^ip -c -p
   export alias exa = ^exa --icons --git
   export alias dpss = ^docker ps "table {{.ID}}\t{{.CreatedAt}}\t{{.Status}}\t{{.Names}}"
+
+  export alias tt = ^typst-test
 }
 
 use aliases *
