@@ -75,13 +75,14 @@ for path in ($paths | where ($it | path exists) | reverse) {
 }
 
 let bins = [
-  ["bins",          "name",      "extras"];
+  ["bins",          "name",        "extras"];
 
-  [["nvim", "vim"], "EDITOR",    []]
-  [["hx", "helix"], "EDITOR",    [["HELIX_RUNTIME", $"($env.HOME)/.local/share/helix/runtime"]]]
-  [["firefox"],     "BROWSER",   []]
-  [["bat"],         "MANPAGER",  []]
-  [["delta"],       "GIT_PAGER", []]
+  [["zsh", "bash"], "SXHKD_SHELL", []]
+  [["nvim", "vim"], "EDITOR",      []]
+  [["hx", "helix"], "EDITOR",      [["HELIX_RUNTIME", $"($env.HOME)/.local/share/helix/runtime"]]]
+  [["firefox"],     "BROWSER",     []]
+  [["bat"],         "MANPAGER",    []]
+  [["delta"],       "GIT_PAGER",   []]
 ]
 
 def try-find-bin [] {
@@ -98,21 +99,13 @@ for var in $bins {
 }
 
 if (which gpgconf) != null {
-  $env.GPG_TTY = (^tty)
+  $env.GPG_TTY = ^tty
 }
 
-
 $env.MEDIA = ($env.HOME | path join "Data/media")
-$env.SXHKD_SHELL = (which zsh | get path.0)
 $env.STARSHIP_CONFIG = ($env.HOME | path join ".config/starship/config.toml")
 $env.RIPGREP_CONFIG_PATH = ($env.HOME | path join ".config/ripgrep/config")
 
-# To add entries to PATH (on Windows you might use Path), you can use the following pattern:
-# $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
-
 # prepare starship prompt
 mkdir ~/.cache/starship
-(starship init nu
-  | str replace "size -c" "size"
-  | str replace --all "let-env " "$env."
-  | save -f ~/.cache/starship/init.nu)
+starship init nu | save -f ~/.cache/starship/init.nu
