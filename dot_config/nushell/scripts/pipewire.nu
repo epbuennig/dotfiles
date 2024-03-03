@@ -44,7 +44,7 @@ export def "device get" [] {
 
   ($devices
     | where info.props."node.description"? != null
-    | where info.props."factory.name" == "api.alsa.pcm.sink"
+    | where info.props."factory.name"? == "api.alsa.pcm.sink"
     | matches-one-of {|e| $e.info.props."node.description" } ($env.PIPEWIRE.node-matchers | values)
     | select id info.props."node.description" info.props."node.name"
     | rename id name ident
