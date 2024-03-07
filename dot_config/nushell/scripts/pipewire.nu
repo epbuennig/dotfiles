@@ -14,7 +14,7 @@ export-env {
 
 # use given device or try to query for default device
 def device-or-default [] {
-  if $in != null { $in } else { device get | where default == true | get id }
+  if $in != null { $in } else { device get | where default == true | get id | get 0 }
 }
 
 # TODO: this can probably done using a simpler version using `where ($it | each ... | any)`
@@ -80,7 +80,7 @@ export def "device set" [
 
 # Toggle default device
 export def "device toggle" [] {
-  let device = (device get | where default == false | get id)
+  let device = (device get | where default == false | get id | get 0)
   device set $device
 }
 
