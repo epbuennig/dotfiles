@@ -20,8 +20,8 @@ module aliases {
   export alias gam = ^git commit -v --amend --no-edit
   export alias gst = ^git stash push --staged
 
-  export alias gn = ^shutdown now
-  export alias brb = ^reboot
+  export alias gn = ^systemctl poweroff
+  export alias brb = ^systemctl reboot
   export alias vpn = ^protonvpn-cli
   export alias sed = ^sed -r
   export alias dots = ^chezmoi
