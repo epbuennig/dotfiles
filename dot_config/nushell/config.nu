@@ -244,7 +244,7 @@ $env.config = {
       # setting it lower can improve completion performance at the cost of omitting some options
       max_results: 100
       completer: (if (exists carapace) {
-        {|spans| ^carapace $spans.0 nushell $spans | from json }
+        {|spans| ^carapace $spans.0 nushell ...$spans | from json }
       } else {
         null
       })
