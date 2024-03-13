@@ -1,7 +1,7 @@
 # Nushell Config File
 
 def exists [ $name: string ] {
-  (which $name).type?.0 == external
+  (which $name).type?.0? == external
 }
 
 module aliases {
