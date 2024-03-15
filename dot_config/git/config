@@ -10,14 +10,28 @@
     autoSetupRemote = true
 
 
+[branch]
+    sort = committerdate
+
+
+[column]
+    ui = auto
+
+
 [merge]
     tool = nvimdiff
 [mergetool]
     path = nvim
 
+[rerere]
+    enabled = true
+
 [delta]
     line-numbers = true
     syntax-theme = gruvbox-dark
+
+[alias]
+    blame = 'blame -w -C -C -C'
 
 
 [user]
