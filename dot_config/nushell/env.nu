@@ -75,14 +75,15 @@ for path in ($paths | where ($it | path exists) | reverse) {
 }
 
 let bins = [
-  ["bins",          "name",        "extras"];
+  ["bins",               "name",        "extras"];
 
-  [["zsh", "bash"], "SXHKD_SHELL", []]
-  [["nvim", "vim"], "EDITOR",      []]
-  [["hx", "helix"], "EDITOR",      [["HELIX_RUNTIME", $"($env.HOME)/.local/share/helix/runtime"]]]
-  [["firefox"],     "BROWSER",     []]
-  [["bat"],         "MANPAGER",    []]
-  [["delta"],       "GIT_PAGER",   []]
+  [["zsh", "bash"],      "SXHKD_SHELL", []]
+  [["xdg-open", "open"], "OPENER",      []]
+  [["nvim", "vim"],      "EDITOR",      []]
+  [["hx", "helix"],      "EDITOR",      [["HELIX_RUNTIME", $"($env.HOME)/.local/share/helix/runtime"]]]
+  [["firefox"],          "BROWSER",     []]
+  [["bat"],              "MANPAGER",    []]
+  [["delta"],            "GIT_PAGER",   []]
 ]
 
 def try-find-bin [] {

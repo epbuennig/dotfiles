@@ -860,3 +860,6 @@ if (exists gpgconf) {
 
 # load starship prompt
 source ~/.cache/starship/init.nu
+
+# load zoxide
+source ~/.cache/zoxide/init.nu
