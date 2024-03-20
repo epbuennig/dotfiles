@@ -1,5 +1,10 @@
 set relativenumber
+set icons
 
 map <enter> shell
 map <delete> delete
 map <backspace2> set hidden!
+
+cmd on-select &{{
+    lf -remote "send $id set statfmt \"$(eza -ld --color=always "$f")\""
+}}
