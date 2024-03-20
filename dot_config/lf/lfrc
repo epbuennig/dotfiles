@@ -1,0 +1,5 @@
+set relativenumber
+
+map <enter> shell
+map <delete> delete
+map <backspace2> set hidden!
