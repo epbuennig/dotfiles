@@ -4,6 +4,12 @@ def exists [ $name: string ] {
   (which $name).type?.0? == external
 }
 
+def --env --wrapped lfz [...args: string] {
+  let dir = lf -print-last-dir ...$args
+  zoxide add $dir
+  cd $dir
+}
+
 module aliases {
   # git aliases
   export alias gd = ^git diff
