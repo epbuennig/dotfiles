@@ -110,3 +110,7 @@ $env.RIPGREP_CONFIG_PATH = ($env.HOME | path join ".config/ripgrep/config")
 # prepare starship prompt
 mkdir ~/.cache/starship
 starship init nu | save -f ~/.cache/starship/init.nu
+
+# prepare starship prompt
+mkdir ~/.cache/zoxide
+zoxide init nushell | save -f ~/.cache/zoxide/init.nu
