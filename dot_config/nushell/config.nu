@@ -5,9 +5,7 @@ def exists [ $name: string ] {
 }
 
 def --env --wrapped lfz [...args: string] {
-  let dir = lf -print-last-dir ...$args
-  zoxide add $dir
-  cd $dir
+  cd (lf -print-last-dir ...$args)
 }
 
 module aliases {
