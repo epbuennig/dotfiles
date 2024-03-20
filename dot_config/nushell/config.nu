@@ -5,6 +5,7 @@ def exists [ $name: string ] {
 }
 
 module aliases {
+  # git aliases
   export alias gd = ^git diff
   export alias gs = ^git status
   export alias gl = ^git log --all --graph
@@ -20,16 +21,20 @@ module aliases {
   export alias gam = ^git commit -v --amend --no-edit
   export alias gst = ^git stash push --staged
 
+  # general aliases
   export alias gn = ^systemctl poweroff
   export alias brb = ^systemctl reboot
+
   export alias vpn = ^protonvpn-cli
-  export alias sed = ^sed -r
   export alias dots = ^chezmoi
-  export alias ip = ^ip -c -p
   export alias exa = ^exa --icons --git
   export alias dpss = ^docker ps "table {{.ID}}\t{{.CreatedAt}}\t{{.Status}}\t{{.Names}}"
-
   export alias tt = ^typst-test
+
+  # adding options to externals
+  export alias sed = ^sed -r
+  export alias ip = ^ip -c -p
+  export alias man = ^batman
 }
 
 use aliases *
